@@ -7,7 +7,7 @@ Apuntes dia 15/05
 
 Chage log:
 
- -- se crearon las carpetas para trabajar
- -- implementada y testeada la clase auto
- -- creada y sin testear la clase infraccion
- -- Lucas
+ - se crearon las carpetas para trabajar
+ - implementada y testeada la clase auto
+ - creada y sin testear la clase infraccion
+ - Lucas
