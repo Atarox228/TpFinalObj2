@@ -10,4 +10,8 @@ Chage log:
  - se crearon las carpetas para trabajar
  - implementada y testeada la clase auto
  - creada y sin testear la clase infraccion
- 
+
+ Change log:
+
+ - Creadas las clases Estacionamiento e Inspector, solo tienen string
+ - Terminado de implementar la clase infraccion y testeada

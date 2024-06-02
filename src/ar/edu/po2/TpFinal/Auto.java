@@ -1,8 +1,7 @@
 package ar.edu.po2.TpFinal;
 
 public class Auto {
-	
-	
+
 	private String patente;
 
 	public Auto(String patente) {
@@ -13,5 +12,5 @@ public class Auto {
 		return patente;
 	}
 	
-	//Agrego este comentario para probar si me funciona git, luego lo borrare.
+
 }
