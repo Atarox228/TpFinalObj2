@@ -5,13 +5,18 @@ Apuntes dia 15/05
 - Consideramos que el telefono es unico por usuario
 - Debido a como estructuramos el problema, exceptuamos al comerciamente y lo dejamos todo en el punto de venta
 
-Chage log:
+Change log1:
 
  - se crearon las carpetas para trabajar
  - implementada y testeada la clase auto
  - creada y sin testear la clase infraccion
 
- Change log:
+ Change log2:
 
  - Creadas las clases Estacionamiento e Inspector, solo tienen string
  - Terminado de implementar la clase infraccion y testeada
+
+Change Log 05/06:
+
+- Tomamos hora como Int de 1 a 24
+- Persona acredita estacionamiento por Hora
