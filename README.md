@@ -18,5 +18,17 @@ Change log1:
 
 Change Log 05/06:
 
-- Tomamos hora como Int de 1 a 24
-- Persona acredita estacionamiento por Hora
+Change Log 05/06:
+
+- Modificaciones del UML
+  - Agregamos clase ticket
+  - Tomamos hora como Int de 1 a 24
+  - Persona acredita estacionamiento por Hora
+  - Generamos Tickets de app
+  - agregamos remover para el sem
+  - dejamos nombres de variables en vez de tipos
+  - Faltan getter/setter/constructores
+  - patente = string
+  - numeroT = int
+  - Agregamos variables a Telefono
+  - Modificamos SEM (Agregamos map)
