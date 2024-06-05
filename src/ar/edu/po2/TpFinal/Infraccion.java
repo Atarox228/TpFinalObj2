@@ -1,9 +1,10 @@
 package ar.edu.po2.TpFinal;
 
-
 import java.time.LocalDate;
 
 public class Infraccion {
+
+	//Instancia de Variables
 	
 	String patente;
 	LocalDate fecha;
@@ -11,6 +12,8 @@ public class Infraccion {
 	Inspector inspector;
 	Estacionamiento estacionamiento;
 	
+	
+	//Constructores
 	
 	public Infraccion(String patente, LocalDate fecha, int hora, Inspector inspector, Estacionamiento estacionamiento) {
 		super();
@@ -21,7 +24,8 @@ public class Infraccion {
 		this.estacionamiento = estacionamiento;
 	}
 
-
+	//Metodos
+	
 	public String getPatente() {
 		return patente;
 	}
