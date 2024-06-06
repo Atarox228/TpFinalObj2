@@ -18,8 +18,6 @@ Change log1:
 
 Change Log 05/06:
 
-Change Log 05/06:
-
 - Modificaciones del UML
   - Agregamos clase ticket
   - Tomamos hora como Int de 1 a 24
@@ -32,3 +30,11 @@ Change Log 05/06:
   - numeroT = int
   - Agregamos variables a Telefono
   - Modificamos SEM (Agregamos map)
+    
+Change Log 06/06:
+
+ - Creacion de las clases 'ZonaEstacionamiento', 'Telefono', 'Ticket', 'AppUsuario'.
+ - En el codigo deje comentarios para revisar.
+ - Borre la clase 'Auto' e 'Inspector'.
+ - Me falta crear metodos de la clase 'appUsuario'.
+   
