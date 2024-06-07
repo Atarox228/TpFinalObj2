@@ -6,16 +6,14 @@ import java.util.ArrayList;
 public class ZonaEstacionamiento {
 
 	//Instancia de Variables
-	private boolean vigente; // Hay que aclarar para que sirve este bool.
-	private int puntoGeografico; // El punto donde se localiza el estacionamiento
+	private AppInspector inspector;
 	private List<String> patentes;
 	private List<PuntoVenta> puntosDeVentas;
 	
 	//Constructores
-	public ZonaEstacionamiento() {
+	public ZonaEstacionamiento(AppInspector inspector) {
 		
-		this.vigente = false;
-		// Aca habria que agregar el punto de la zona.
+		this.inspector = inspector;
 		this.patentes = new ArrayList<String>();
 		this.puntosDeVentas = new ArrayList<PuntoVenta>();
 		
@@ -41,15 +39,28 @@ public class ZonaEstacionamiento {
 		this.patentes.remove(patente);
 	}
 	
-	/*
-	 * En algun punto de venta de la zona de estacionamiento, se acredita el estacionamiento de un
-	 * auto, pasando por parametro la patente y la hora.
-	 */
-	public void acreditarEst(String patente, int horas) {
+	public void agregarPuntoVenta(PuntoVenta puntoVenta) {
 		
-		// Me parece que este metodo esta de mas ya que podria ser cualquier punto de venta, y ademas
-		// se deberia distinguir entre acreditar y cargar.
+		this.puntosDeVentas.add(puntoVenta);
+	}
+	public void quitarPuntoVenta(PuntoVenta puntoVenta) {
 		
+		this.puntosDeVentas.remove(puntoVenta);
+	}
+	
+	public int getIdInspector() {
+		
+		return this.inspector.getId();
+	}
+
+	public int getPatentesSize() {
+		
+		return this.patentes.size();
+	}
+
+	public int getPuntosDeVentasSize() {
+		
+		return this.puntosDeVentas.size();
 	}
 }
 

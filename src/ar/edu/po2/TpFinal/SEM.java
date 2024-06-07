@@ -1,36 +1,60 @@
 package ar.edu.po2.TpFinal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
 public class SEM extends Observable{
 
-	//Instancia de Variables
+	//Variables de Instancia
 	
-	private List<Ticket> compras;
-	private Map<String,Integer> credito;
 	// Representa la hora actual cuando recibe algun mensaje par finalizar estacionamiento.
 	private int hora; 
+	
 	// Precio equivale a 40$
 	private double precioEstacionamiento;
 	
-	private List<Infraccion> infracciones;
+	private List<Ticket> registroDeMovimientos;
+	
+	// tiene registrados los creditos en la app de cada cliente
+	private List<Credito> listaDeCreditos;
+	
+	private List<Infraccion> listaDeInfracciones;
 	
 	// Son todos los estacionamientos registrados(tanto compra puntual como app).
-	private Map<String,Ticket> estacionamientoVigentes;
+	private List<TicketEst> ticketsDeEstacionamientos;
 	
-	private Map<Integer, String> estacionadosApp;
+	private List<ZonaEstacionamiento> zonasEstacionamiento;
+	
+	private int contadorIdTickets;
+	
 	
 	//Constructores
 	
-	//Metodos
+	public SEM() {
+		
+		this.hora = 7;
+		this.precioEstacionamiento = 40d;
+		this.contadorIdTickets = 0;
+		this.registroDeMovimientos = new ArrayList<Ticket>();
+		this.listaDeCreditos = new ArrayList<Credito>();
+		this.listaDeInfracciones = new ArrayList<Infraccion>();
+		this.ticketsDeEstacionamientos = new ArrayList<TicketEst>();
+		this.zonasEstacionamiento = new ArrayList<ZonaEstacionamiento>();
+	}
 	
+	public void setHora(int hora) {
+		
+		this.hora = hora;
+	}
+	
+	//Metodos
 	/* 
-	 * Recibe un tikcet, lo guarda en la lista compras, y registra ademas en la lista estacionamientoVigentes.
+	 * Crea un ticket y lo guarda en la registroDeMovimientos, y registra ademas en la lista estacionamientoVigentes.
 	 * Este metodo lo llama un puntoVenta con el metodo acreditarEst.
 	 */
-	public void registrarCompraPuntual(String patente, int cantidadHoras, Ticket ticket) {
+	public void registrarCompraPuntual(String patente, int cantidadHoras) {
 		
 	}
 	
@@ -44,13 +68,13 @@ public class SEM extends Observable{
 		
 	}
 	//Registra en el map estacionamientoVigentes y estacionadosAPP.
-	public void registrarEstacionamientoApp(String patente,int numeroTelefono, Ticket ticket) {
+	public void registrarEstacionamientoApp(String patente,int numeroTelefono) {
 		
 	}
 	
 	// Resgista la carga de un telefono en el map credito, y en caso de que ya exista el telefono en el map, habra que
 	// actualizar el saldo del mismo.
-	public void cargarCredito(double credito, Telefono telefono) {
+	public void cargarCredito(double credito, int nTelefono) {
 		
 	}
 	
@@ -72,10 +96,6 @@ public class SEM extends Observable{
 		
 	}
 	
-	public void setHora(int hora) {
-		
-		this.hora = hora;
-	}
 	
 	public void altaDeInfraccion(String patente, int idInspector) {
 		
@@ -83,5 +103,27 @@ public class SEM extends Observable{
 
 	public boolean estaEnInfraccion(String string, AppInspector app) {
 		return false;
+	}
+	
+	// Añadir de Lista.
+	private void agregarTicketHistorico(Ticket ticket) {
+		
+		this.registroDeMovimientos.add(ticket);
+	}
+	private void agregarCredito(Credito credito) {
+		
+		this.listaDeCreditos.add(credito);
+	}
+	private void agregarInfracccion(Infraccion infraccion) {
+		
+		this.listaDeInfracciones.add(infraccion);
+	}
+	private void agregarTicketDeEstacionamiento(TicketEst ticket) {
+		
+		this.ticketsDeEstacionamientos.add(ticket);
+	}
+	private void agregarZonaEstacionamiento(ZonaEstacionamiento zona) {
+		
+		this.zonasEstacionamiento.add(zona);
 	}
 }

@@ -7,9 +7,11 @@ public class PuntoVenta {
 	private SEM sistemaSEM;
 	
 	//Constructores 
-	public PuntoVEnta(ZonaEstacionamiento zona) {
+	public PuntoVenta(ZonaEstacionamiento zona, SEM sistema) {
 		
+		this.sistemaSEM = sistema;
 		this.zona = zona;
+		zona.agregarPuntoVenta(this);
 	}
 	
 	//Metodos
@@ -19,14 +21,17 @@ public class PuntoVenta {
 	 * Ademas crear un tikcet. 
 	 */
 	public void acreditarEst(String patente, int horas) {
-		
+		 
+		sistemaSEM.registrarCompraPuntual(patente, horas);
+		zona.estacionar(patente);
 	}
 	
 	/*
 	 * Recibe un monto y un telefono, y llama al Sem con el metodo cargarCredito.
 	 * Ademas crear un tikcet.
 	 */
-	public void cargarSaldo(Double monto, Telefono telefono) {
+	public void cargarSaldo(Double monto, int nTelefono) {
 		
+		sistemaSEM.cargarCredito(monto, nTelefono);
 	}
 }

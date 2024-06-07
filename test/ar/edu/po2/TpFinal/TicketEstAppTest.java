@@ -11,7 +11,8 @@ class TicketEstAppTest {
 	
 	@Test
 	void gettersNoVariablestest() {
-		TicketEstApp ticket = new TicketEstApp("AA-000-AA",23047067,8,"20/02/2020",40);
+		TicketEstApp ticket = new TicketEstApp(1,"AA-000-AA",23047067,8,"20/02/2020",40);
+		assertEquals(ticket.getIdTicket(),1);
 		assertEquals(ticket.getPatente(),"AA-000-AA");
 		assertEquals(ticket.getNTelefono(), 23047067);
 		assertEquals(ticket.getHoraInicio(), 8);
@@ -21,11 +22,11 @@ class TicketEstAppTest {
 	
 	@Test
 	void gettersVariablesTest() {
-		TicketEstApp ticket1 = new TicketEstApp("AA-000-AA",23047067,8,"20/02/2020",40);
-		TicketEstApp ticket2 = new TicketEstApp("AA-000-AA",23047067,8,"20/02/2020",41);
-		TicketEstApp ticket3 = new TicketEstApp("AA-000-AA",23047067,8,"20/02/2020",79);
-		TicketEstApp ticket4 = new TicketEstApp("AA-000-AA",23047067,16,"20/02/2020",240);
-		TicketEstApp ticket5 = new TicketEstApp("AA-000-AA",23047067,16,"20/02/2020",80);
+		TicketEstApp ticket1 = new TicketEstApp(1,"AA-000-AA",23047067,8,"20/02/2020",40);
+		TicketEstApp ticket2 = new TicketEstApp(2,"AA-000-AA",23047067,8,"20/02/2020",41);
+		TicketEstApp ticket3 = new TicketEstApp(3,"AA-000-AA",23047067,8,"20/02/2020",79);
+		TicketEstApp ticket4 = new TicketEstApp(4,"AA-000-AA",23047067,16,"20/02/2020",240);
+		TicketEstApp ticket5 = new TicketEstApp(5,"AA-000-AA",23047067,16,"20/02/2020",80);
 		
 		assertEquals(ticket1.getHoraMaxima(),9);
 		assertEquals(ticket2.getHoraMaxima(),9);
