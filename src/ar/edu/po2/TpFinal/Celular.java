@@ -3,7 +3,7 @@ package ar.edu.po2.TpFinal;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Telefono {
+public class Celular {
 
 	//Instacia de Variables
 	private int numero; // Numero de celular que es unico.
@@ -13,13 +13,13 @@ public class Telefono {
 	private AppUsuario app;
 	
 	//Constructores
-	public Telefono(int numero, ZonaEstacionamiento zona) {
+	public Celular(int numero, ZonaEstacionamiento zona) {
 		
 		this.numero = numero;
 		this.zona = zona;
 		this.patentes = new ArrayList<String>();
-		this.app = new AppUsuario(); // Se le podria pasar una patente no?
-	
+		this.app = null;
+
 	}
 	
 	//Metodos
@@ -30,6 +30,13 @@ public class Telefono {
 	public int getNumero() {
 		
 		return this.numero;
+	}
+	
+	// iniciamos al celular sin la app porque para construir la app necesitamos al SEM
+	
+	public void descargarApp(AppUsuario app) {
+		
+		this.app = app;
 	}
 	
 	

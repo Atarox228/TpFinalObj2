@@ -84,7 +84,7 @@ public class SEM extends Observable{
 	 * Entraria en el map de credito, revisa si existe credito con el telofono por parametro, e indica cuantas horas
 	 * cubre su saldo(en caso de que este tubiese).
 	 */
-	public void enviarMensajeDeInicioEstacionamiento(Telefono telefono) {
+	public void enviarMensajeDeInicioEstacionamiento(Celular telefono) {
 		
 	}
 	
@@ -125,5 +125,10 @@ public class SEM extends Observable{
 	private void agregarZonaEstacionamiento(ZonaEstacionamiento zona) {
 		
 		this.zonasEstacionamiento.add(zona);
+	}
+
+	public void consultarSaldoDe_(int numero) {
+		
+		//mediante un stream(listaDeCreditos) deberia devolver el saldo asignado al numero pasado
 	}
 }
