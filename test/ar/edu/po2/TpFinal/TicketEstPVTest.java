@@ -10,8 +10,9 @@ class TicketEstPVTest {
 	@Test
 	void gettersTest() {
 		PuntoVenta p = mock(PuntoVenta.class);
-		TicketEstPV ticket = new TicketEstPV("AA-000-AA",4,8,"20/02/2020",p);
+		TicketEstPV ticket = new TicketEstPV(1,"AA-000-AA",4,8,"20/02/2020",p);
 		
+		assertEquals(ticket.getIdTicket(),1);
 		assertEquals(ticket.getFecha(),"20/02/2020");
 		assertEquals(ticket.getHoraInicio(),8);
 		assertEquals(ticket.getPatente(), "AA-000-AA");

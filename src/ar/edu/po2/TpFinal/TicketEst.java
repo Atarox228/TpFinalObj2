@@ -5,9 +5,11 @@ public abstract class TicketEst implements Ticket{
 	private String patente;
 	private String fecha;
 	private int horaInicio;
+	private int idTicket;
 	
-	public TicketEst(String patente, String fecha, int horaInicio) {
+	public TicketEst(int id, String patente, String fecha, int horaInicio) {
 		super();
+		this.idTicket = id;
 		this.patente = patente;
 		this.fecha = fecha;
 		this.horaInicio = horaInicio;
@@ -17,6 +19,9 @@ public abstract class TicketEst implements Ticket{
 
 	public abstract int getHoraMaxima();
 	
+	public int getIdTicket() {
+		return idTicket;
+	}
 	public String getFecha() {
 		return fecha;
 	}
