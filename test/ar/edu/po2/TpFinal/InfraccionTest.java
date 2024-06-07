@@ -1,6 +1,7 @@
 package ar.edu.po2.TpFinal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 
@@ -11,16 +12,13 @@ class InfraccionTest {
 	
 	//setUp
 	Infraccion infraccion;
-	LocalDate hoy = LocalDate.now();
-	Inspector inspector;
-	Estacionamiento estacionamiento;
+	ZonaEstacionamiento estacionamiento;
 	
 	
 	@BeforeEach
 	void setUp() {
-		inspector = new Inspector("Raul");
-		estacionamiento = new Estacionamiento("Lomas");
-		infraccion = new Infraccion("AA-000-AA",hoy,10,inspector,estacionamiento);
+		estacionamiento = mock(ZonaEstacionamiento.class);
+		infraccion = new Infraccion("AA-000-AA","20/02/2020",10,0546,estacionamiento);
 		
 	}
 	
@@ -39,10 +37,10 @@ class InfraccionTest {
 	void devolverDia() {
 		
 		//Exercise
-		LocalDate dia = infraccion.getFecha();
+		String dia = infraccion.getFecha();
 
 		//verify
-		assertEquals(dia,hoy);
+		assertEquals(dia,"20/02/2020");
 	}
 	
 	@Test
@@ -56,20 +54,20 @@ class InfraccionTest {
 	}
 	
 	@Test
-	void devolverInspector() {
+	void devolverIdInspector() {
 		
 		//Exercise
-		Inspector ins = infraccion.getInspector();
+		int ins = infraccion.getIdInspector();
 		
 		//verify
-		assertEquals(ins,inspector);		
+		assertEquals(ins,0546);		
 	}
 	
 	@Test
-	void devolverEstacionamiento() {
+	void devolverZonaEstacionamiento() {
 		
 		//Exercise
-		Estacionamiento est = infraccion.getEstacionamiento();
+		ZonaEstacionamiento est = infraccion.getZonaEstacionamiento();
 		
 		//verify
 		assertEquals(est,estacionamiento);

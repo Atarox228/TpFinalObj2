@@ -76,4 +76,12 @@ public class SEM extends Observable{
 		
 		this.hora = hora;
 	}
+	
+	public void altaDeInfraccion(String patente, int idInspector) {
+		
+	}
+
+	public boolean estaEnInfraccion(String string, AppInspector app) {
+		return false;
+	}
 }
