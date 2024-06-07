@@ -7,20 +7,20 @@ public class Infraccion {
 	//Instancia de Variables
 	
 	String patente;
-	LocalDate fecha;
+	String fecha;
 	int hora;
-	Inspector inspector;
-	Estacionamiento estacionamiento;
+	int idInspector;
+	ZonaEstacionamiento estacionamiento;
 	
 	
 	//Constructores
 	
-	public Infraccion(String patente, LocalDate fecha, int hora, Inspector inspector, Estacionamiento estacionamiento) {
+	public Infraccion(String patente, String fecha, int hora, int idInspector, ZonaEstacionamiento estacionamiento) {
 		super();
 		this.patente = patente;
 		this.fecha = fecha;
 		this.hora = hora;
-		this.inspector = inspector;
+		this.idInspector = idInspector;
 		this.estacionamiento = estacionamiento;
 	}
 
@@ -31,7 +31,7 @@ public class Infraccion {
 	}
 
 
-	public LocalDate getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
@@ -41,12 +41,12 @@ public class Infraccion {
 	}
 
 
-	public Inspector getInspector() {
-		return inspector;
+	public int getIdInspector() {
+		return idInspector;
 	}
 
 
-	public Estacionamiento getEstacionamiento() {
+	public ZonaEstacionamiento getZonaEstacionamiento() {
 		return estacionamiento;
 	}
 
