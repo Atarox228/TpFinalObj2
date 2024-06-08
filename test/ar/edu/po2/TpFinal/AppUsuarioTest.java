@@ -28,7 +28,7 @@ class AppUsuarioTest {
 	void inicioEstacionamiento() {
 		
 		app.inicioDeEstacionamiento(app.getPatentePredeterminada());
-		verify(sistemaSEM,times(1)).registrarEstacionamientoApp("AA-000-AA",app.getNTelefono());
+		verify(sistemaSEM,times(1)).registrarEstacionamientoApp("AA-000-AA",app);
 		assertTrue(app.getVigente());
 	}
 	

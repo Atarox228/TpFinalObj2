@@ -8,6 +8,12 @@ import java.util.stream.Stream;
 
 public class SEM extends Observable{
 
+	/*
+	 * Modificar TicketApp, no queda en el historico, solo para estacionamiento vigente, y no deberia aumentar el contador
+	 * 
+	 */
+	
+	
 	//Variables de Instancia
 	
 	// Representa la hora actual cuando recibe algun mensaje par finalizar estacionamiento.

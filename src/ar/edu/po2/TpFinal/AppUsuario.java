@@ -6,7 +6,7 @@ public class AppUsuario {
 	private String patentePredeterminada;
 	private SEM sistemaSEM;
 	private Modo modoApp;
-	private boolean modoDesplazamiento;
+	private boolean sensorMovimiento;
 	private Celular celular;
 	private boolean vigente;
 	
@@ -17,10 +17,10 @@ public class AppUsuario {
 		super();
 		this.patentePredeterminada = patentePredeterminada;
 		this.sistemaSEM = sistemaSEM;
-		this.modoApp = new ModoManual(this);
-		this.modoDesplazamiento = false;
+		this.modoApp = new ModoManual();
 		this.celular = celular;
 		this.vigente = false;
+		this.sensorMovimiento = false;
 	}
 	
 	//Getters Setters
@@ -28,79 +28,88 @@ public class AppUsuario {
 	public String getPatentePredeterminada() {
 		return patentePredeterminada;
 	}
-	
 	public void setPatentePredeterminada(String patente) {
 		this.patentePredeterminada = patente;
 	}
-
+	
 	protected int getNTelefono() {
 		return celular.getNumero();
 	}
 	
-	//Es una bandera 
+	//Es una bandera para corroborar que automatico no inicie otro estacionamiento
 	public boolean getVigente() {
 		
 		return this.vigente;
 	}
-	
-	protected void changeVigente() {
+	protected void cambiarVigente() {
 		this.vigente = !this.vigente;
 	}
 
-	//le manda un mensaje al modo actual para hacerlo cambiar el modo
 	public void cambiarModoApp(){
 	    
-		modoApp.cambiarModo();
-		if(!(this.modoDesplazamiento))
-			this.modoDesplazamiento = !this.modoDesplazamiento;
-	  }
-	  
+		modoApp.cambiarModo(this);
+	  }  
 	protected void setModoApp(Modo modo) {
 		
 		this.modoApp= modo;
 	  }
-	
-	// deberia estar sincronizado con modo automatico
-	protected void cambiarModoDesplazamiento() {
-		this.modoDesplazamiento = !this.modoDesplazamiento;
-		this.cambiarModoApp();
+	protected void cambiarModoMovimiento() {
+		this.sensorMovimiento = !this.sensorMovimiento;
 	}
 
 	//Metodos
-	/*
-	 * Deberia retorna un String indicado cada dato que pide el modelo.
-	 * Registra en el SEM que se inicio el estacionamiento. Ademas de mostrar los datos 
-	 */
 
+	//Deberia retorna un String indicado cada dato que pide el modelo.
+	//Registra en el SEM que se inicio el estacionamiento. Ademas de mostrar los datos  
 	public void inicioDeEstacionamiento(String patente){
 
-	    sistemaSEM.registrarEstacionamientoApp(patente,this.getNTelefono());
-	    this.changeVigente();
+	    sistemaSEM.registrarEstacionamientoApp(patente,this);
+	    this.cambiarVigente();
 	  }
-	/*
-	 * Deberia retorna un String indicado cada dato que pide el modelo.
-	 * Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
-	 */
+	
+	//Deberia retorna un String indicado cada dato que pide el modelo.
+	//Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
 	public void finDeEstacionamiento(){
 		  
 		  sistemaSEM.removerEstacionamientoDe_(this.getNTelefono());
-		  this.changeVigente();
+		  this.cambiarVigente();
 	  }
 	  
-	  /*
-	  * llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
-	  */
+	//llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
 	public void consultarSaldo(){
 		  
 		  sistemaSEM.consultarSaldoDe_(this.getNTelefono());
 	  }
 	
+	protected boolean sensorPrendido() {
+		
+		return this.sensorMovimiento;
+	}
 	
 	public void driving() {
 		
+		if(sensorPrendido())
+		this.modoApp.estaManejando();
 	}
 	
 	public void walking() {
 		
+		if(sensorPrendido())
+		this.modoApp.estaCaminando();
+	}
+
+	public void encenderSensor() {
+		
+		this.sensorMovimiento = true;
+		
+	}
+	public void apagarSensor() {
+		this.sensorMovimiento = false;
+		this.cambiarModoSensorApagado();
+	}
+	
+	//
+	public void cambiarModoSensorApagado() {
+		this.modoApp.cambiarModoSensorApagado();
 	}
 }

@@ -3,17 +3,28 @@ package ar.edu.po2.TpFinal;
 public class ModoManual implements Modo {
 
 	
-	private AppUsuario app;
-	
-	public ModoManual(AppUsuario app) {
-		
-		this.app = app;
-	}
-	
 	@Override
-	public void cambiarModo() {
+	public void cambiarModo(AppUsuario app) {
 		
-		app.setModoApp(new ModoAutomatico(app));
+		Modo m = new ModoAutomatico(app);
+		
+		app.setModoApp(m);
+		app.encenderSensor();
+	}
+
+	@Override
+	public void estaManejando() {
+		
+	}
+
+	@Override
+	public void estaCaminando() {
+	
+	}
+
+	@Override
+	public void cambiarModoSensorApagado() {
+		
 	}
 
 }
