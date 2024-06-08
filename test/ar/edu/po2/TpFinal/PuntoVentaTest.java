@@ -26,7 +26,7 @@ class PuntoVentaTest {
 		
 		punto.acreditarEst("AA-000-AA", 2);
 		
-		verify(sistemaSEM,times(1)).registrarCompraPuntual("AA-000-AA", 2);
+		verify(sistemaSEM,times(1)).registrarCompraPuntual("AA-000-AA", 2,punto);
 		verify(zona, times(1)).estacionar("AA-000-AA");
 	}
 	

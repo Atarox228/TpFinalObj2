@@ -34,7 +34,7 @@ public class AppUsuario {
 		this.patentePredeterminada = patente;
 	}
 
-	private int getNTelefono() {
+	protected int getNTelefono() {
 		return celular.getNumero();
 	}
 	

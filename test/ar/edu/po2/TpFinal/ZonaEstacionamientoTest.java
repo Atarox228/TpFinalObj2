@@ -14,14 +14,11 @@ class ZonaEstacionamientoTest {
 	
 	@BeforeEach
 	void setUp() {
-		inspector = mock(AppInspector.class);
-		zona = new ZonaEstacionamiento(inspector);
+		zona = new ZonaEstacionamiento(2546);
 	}
 	
 	@Test
 	void getterIdInspectorTest() {
-		
-		when(inspector.getId()).thenReturn(2546);
 		
 		assertEquals(zona.getIdInspector(),2546);
 	}

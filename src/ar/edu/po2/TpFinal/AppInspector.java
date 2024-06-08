@@ -36,7 +36,7 @@ public class AppInspector {
 	}
 	
 	public void consultarEstacionamientoDe(String patente) {
-		if (this.sistemaSEM.estaEnInfraccion(patente, this)){
+		if (this.sistemaSEM.estaEnInfraccion(patente, this.getId())){
 			this.altaDeInfraccion(patente);
 		}
 	}

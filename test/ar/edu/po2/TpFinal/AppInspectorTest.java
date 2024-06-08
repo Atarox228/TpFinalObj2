@@ -38,7 +38,7 @@ class AppInspectorTest {
 	
 	@Test
 	void consultaInfraccionTest() {
-		when(s.estaEnInfraccion("AA-000-AA",app)).thenReturn(false);
+		when(s.estaEnInfraccion("AA-000-AA",app.getId())).thenReturn(false);
 		app.consultarEstacionamientoDe("AA-000-AA");
 		
 		verify(s, atMost(0)).altaDeInfraccion("AA-000-AA",2546);
@@ -46,7 +46,7 @@ class AppInspectorTest {
 	
 	@Test
 	void consultaInfraccion2Test() {
-		when(s.estaEnInfraccion("AA-000-AA",app)).thenReturn(true);
+		when(s.estaEnInfraccion("AA-000-AA",app.getId())).thenReturn(true);
 		app.consultarEstacionamientoDe("AA-000-AA");
 		
 		verify(s, atLeast(1)).altaDeInfraccion("AA-000-AA",2546);

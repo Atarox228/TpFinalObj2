@@ -6,14 +6,14 @@ import java.util.ArrayList;
 public class ZonaEstacionamiento {
 
 	//Instancia de Variables
-	private AppInspector inspector;
+	private int idInspector;
 	private List<String> patentes;
 	private List<PuntoVenta> puntosDeVentas;
 	
 	//Constructores
-	public ZonaEstacionamiento(AppInspector inspector) {
+	public ZonaEstacionamiento(int idInspector) {
 		
-		this.inspector = inspector;
+		this.idInspector = idInspector;
 		this.patentes = new ArrayList<String>();
 		this.puntosDeVentas = new ArrayList<PuntoVenta>();
 		
@@ -38,7 +38,6 @@ public class ZonaEstacionamiento {
 		
 		this.patentes.remove(patente);
 	}
-	
 	public void agregarPuntoVenta(PuntoVenta puntoVenta) {
 		
 		this.puntosDeVentas.add(puntoVenta);
@@ -50,17 +49,19 @@ public class ZonaEstacionamiento {
 	
 	public int getIdInspector() {
 		
-		return this.inspector.getId();
+		return this.idInspector;
 	}
-
 	public int getPatentesSize() {
 		
 		return this.patentes.size();
 	}
-
 	public int getPuntosDeVentasSize() {
 		
 		return this.puntosDeVentas.size();
+	}
+
+	public boolean tieneEstacionadoA(String patente) {
+		return this.patentes.contains(patente);
 	}
 }
 
