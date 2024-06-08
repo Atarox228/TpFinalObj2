@@ -22,7 +22,7 @@ public class PuntoVenta {
 	 */
 	public void acreditarEst(String patente, int horas) {
 		 
-		sistemaSEM.registrarCompraPuntual(patente, horas);
+		sistemaSEM.registrarCompraPuntual(patente, horas,this);
 		zona.estacionar(patente);
 	}
 	

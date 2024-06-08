@@ -6,7 +6,7 @@ public class TicketEstApp extends TicketEst{
 	private int horaMaxima;
 	
 	
-	public TicketEstApp(int id, String patente, int nTelefono, int horaInicio, String fecha, int saldo) {
+	public TicketEstApp(int id, String patente, int nTelefono, int horaInicio, String fecha, double saldo) {
 			// el sistema ya se fijo que saldo es mayor o igual a 40
 		super(id,patente,fecha, horaInicio);
 		int horasPosibles = (int) Math.floor(saldo/40); 

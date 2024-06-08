@@ -7,10 +7,10 @@ public class Credito {
 	private double credito;
 	
 	//Constructor
-	public Credito(int numTelefono, double credito) {
+	public Credito(int numTelefono) {
 		
 		this.nTelefono = numTelefono;
-		this.credito = credito;
+		this.credito = 0d;
 	}
 	//Metodos
 
