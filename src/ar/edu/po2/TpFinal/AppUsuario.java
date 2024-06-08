@@ -23,7 +23,6 @@ public class AppUsuario {
 		this.vigente = false;
 	}
 	
-	
 	//Getters Setters
 	
 	public String getPatentePredeterminada() {
@@ -44,7 +43,7 @@ public class AppUsuario {
 		return this.vigente;
 	}
 	
-	private void changeVigente() {
+	protected void changeVigente() {
 		this.vigente = !this.vigente;
 	}
 
@@ -56,13 +55,13 @@ public class AppUsuario {
 			this.modoDesplazamiento = !this.modoDesplazamiento;
 	  }
 	  
-	public void setModoApp(Modo modo) {
+	protected void setModoApp(Modo modo) {
 		
 		this.modoApp= modo;
 	  }
 	
 	// deberia estar sincronizado con modo automatico
-	private void cambiarModoDesplazamiento() {
+	protected void cambiarModoDesplazamiento() {
 		this.modoDesplazamiento = !this.modoDesplazamiento;
 		this.cambiarModoApp();
 	}
@@ -89,7 +88,7 @@ public class AppUsuario {
 	  }
 	  
 	  /*
-	  * llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double
+	  * llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
 	  */
 	public void consultarSaldo(){
 		  

@@ -8,9 +8,9 @@
 	</classpathentry>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/luqui/OneDrive/Escritorio/mock/byte-buddy-1.10.18.jar"/>
-	<classpathentry kind="lib" path="C:/Users/luqui/OneDrive/Escritorio/mock/byte-buddy-agent-1.10.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/luqui/OneDrive/Escritorio/mock/mockito-core-3.6.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/luqui/OneDrive/Escritorio/mock/objenesis-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lauta/Downloads/byte-buddy-1.10.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lauta/Downloads/mockito-core-3.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lauta/Downloads/byte-buddy-agent-1.10.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lauta/Downloads/objenesis-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
