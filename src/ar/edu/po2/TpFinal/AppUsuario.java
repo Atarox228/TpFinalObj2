@@ -44,7 +44,8 @@ public class AppUsuario {
 	protected void cambiarVigente() {
 		this.vigente = !this.vigente;
 	}
-
+	
+	
 	public void cambiarModoApp(){
 	    
 		modoApp.cambiarModo(this);
@@ -53,9 +54,6 @@ public class AppUsuario {
 		
 		this.modoApp= modo;
 	  }
-	protected void cambiarModoMovimiento() {
-		this.sensorMovimiento = !this.sensorMovimiento;
-	}
 
 	//Metodos
 
@@ -76,9 +74,9 @@ public class AppUsuario {
 	  }
 	  
 	//llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
-	public void consultarSaldo(){
+	public Double consultarSaldo(){
 		  
-		  sistemaSEM.consultarSaldoDe_(this.getNTelefono());
+		  return sistemaSEM.consultarSaldoDe_(this.getNTelefono());
 	  }
 	
 	protected boolean sensorPrendido() {
@@ -109,7 +107,7 @@ public class AppUsuario {
 	}
 	
 	//
-	public void cambiarModoSensorApagado() {
+	protected void cambiarModoSensorApagado() {
 		this.modoApp.cambiarModoSensorApagado();
 	}
 }

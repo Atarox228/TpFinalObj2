@@ -24,10 +24,8 @@ public class ModoAutomatico implements Modo{
 	//hay que avisar que se hizo automaticamente
 	public void iniciarEstacionamiento(){
 		
-		if (!(app.getVigente()) ) 
+		if (!(app.getVigente())) 
 			this.app.inicioDeEstacionamiento(app.getPatentePredeterminada());
-		
-		
 	}
 	
 	//hay que avisar que se hizo automaticamente
@@ -43,7 +41,7 @@ public class ModoAutomatico implements Modo{
 	public void estaManejando() {
 		if (this.estadoCaminando) {
 			this.finEstacionamiento();
-			this.estadoCaminando = !estadoCaminando;
+			cambiarEstado();
 		}
 		
 		
@@ -54,12 +52,16 @@ public class ModoAutomatico implements Modo{
 	public void estaCaminando() {
 		if (!this.estadoCaminando) {
 			this.iniciarEstacionamiento();
-			this.estadoCaminando = !estadoCaminando;
+			cambiarEstado();
 		}
 		
 	}
-
-
+	//protected para los tests
+	protected void cambiarEstado() {
+		
+		this.estadoCaminando = !estadoCaminando;
+	}
+	
 	@Override
 	public void cambiarModoSensorApagado() {
 		this.cambiarModo(app);
