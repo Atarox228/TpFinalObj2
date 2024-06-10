@@ -69,7 +69,7 @@ public class AppUsuario {
 	//Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
 	public void finDeEstacionamiento(){
 		  
-		  sistemaSEM.removerEstacionamientoDe_(this.getNTelefono());
+		  sistemaSEM.removerEstacionamientoDe_(this);
 		  this.cambiarVigente();
 	  }
 	  
@@ -109,5 +109,10 @@ public class AppUsuario {
 	//
 	protected void cambiarModoSensorApagado() {
 		this.modoApp.cambiarModoSensorApagado();
+	}
+
+	public void notificar(String notificacion) {
+		// que notifique al telefono
+		
 	}
 }

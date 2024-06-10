@@ -9,35 +9,18 @@ import org.junit.jupiter.api.Test;
 class TicketEstTest {
 
 	private TicketEst t1;
-
-	
-	@BeforeEach
-	void setUp() {
-		PuntoVenta p = mock(PuntoVenta.class);
-		t1 = new TicketEstPV(1,"AA-000-AA",4,8,"20/02/2020",p);
-		
-	}
 	
 	@Test
 	void comportaminetoGeneralTest() {
-		assertEquals(t1.getIdTicket(),1);
-		assertEquals(t1.getHoraMaxima(),12);
+		PuntoVenta p = mock(PuntoVenta.class);
+		t1 = new TicketEst(1,"AA-000-AA",8,"20/02/2020",p);
+		assertEquals(t1.getIdTicket(),1);;
 		assertEquals(t1.getPatente(),"AA-000-AA");
 		assertEquals(t1.getFecha(),"20/02/2020");
-		assertEquals(t1.getNTelefono(),0);
 		assertEquals(t1.getHoraInicio(),8);
 		
 	}
 	
-	@Test
-	void polimorfismoTest(){
-		t1 = new TicketEstApp(2,"AA-000-BA",23047067,8,"20/02/2020",40);
-		assertEquals(t1.getIdTicket(),2);
-		assertEquals(t1.getHoraMaxima(),9);
-		assertEquals(t1.getPatente(),"AA-000-BA");
-		assertEquals(t1.getFecha(),"20/02/2020");
-		assertEquals(t1.getNTelefono(),23047067);
-		assertEquals(t1.getHoraInicio(),8);
-	}
+	
 
 }

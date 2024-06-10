@@ -27,10 +27,9 @@ public class Credito {
 		this.credito += monto;
 		
 	}
-	// Observacion : el monto recibido por parametro es mayor a 0. Ademas el sistema del SEM jamas dejara 
-	// saldo en un numero menor que 0.
+	// Observacion : el monto recibido por parametro es mayor a 0.
 	public void decrementarCredito(double monto) {
-		
-		this.credito -= monto;
+		double montoARemover = Math.min(monto, this.credito);
+		this.credito -= montoARemover;
 	}
 }

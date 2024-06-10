@@ -23,19 +23,22 @@ class PuntoVentaTest {
 	
 	@Test
 	void acreditarEstacionamientoTest() {
+
+		Ticket t = punto.acreditarEst("AA-000-AA", 2);
 		
-		punto.acreditarEst("AA-000-AA", 2);
+		verify(sistemaSEM, times(1)).addEstacionamientoPV("AA-000-AA", 2);
+		verify(sistemaSEM, times(1)).addTicket(t);
+		verify(zona,times(1)).estacionar("AA-000-AA");
 		
-		verify(sistemaSEM,times(1)).registrarCompraPuntual("AA-000-AA", 2,punto);
-		verify(zona, times(1)).estacionar("AA-000-AA");
 	}
 	
 	@Test
 	void cargarSaldoPuntoVentaTest() {
+		Ticket t = punto.cargarSaldo(40d, 23047067);
 		
-		punto.cargarSaldo(120d, 41770166);
-		
-		verify(sistemaSEM, times(1)).cargarCredito(120d,41770166);
+		verify(sistemaSEM, times(1)).addTicket(t);
+		verify(sistemaSEM,times(1)).cargarCredito(40d,23047067);
+	
 	}
 
 }

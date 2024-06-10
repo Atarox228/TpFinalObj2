@@ -30,7 +30,7 @@ public class SEM extends Observable{
 	private List<Infraccion> listaDeInfracciones;
 	
 	// Son todos los estacionamientos registrados(tanto compra puntual como app).
-	private List<TicketEst> ticketsDeEstacionamientos;
+	private List<RegistroEst> registroDeEstacionamientos;
 	
 	private List<ZonaEstacionamiento> zonasEstacionamiento;
 	
@@ -49,7 +49,7 @@ public class SEM extends Observable{
 		this.registroDeMovimientos = new ArrayList<Ticket>();
 		this.listaDeCreditos = new ArrayList<Credito>();
 		this.listaDeInfracciones = new ArrayList<Infraccion>();
-		this.ticketsDeEstacionamientos = new ArrayList<TicketEst>();
+		this.registroDeEstacionamientos = new ArrayList<RegistroEst>();
 		this.zonasEstacionamiento = new ArrayList<ZonaEstacionamiento>();
 		this.fecha = fecha;
 	}
@@ -77,8 +77,8 @@ public class SEM extends Observable{
 	public int getCantTickets() {
 		return registroDeMovimientos.size();
 	}
-	public int getCantTicketsEst() {
-		return ticketsDeEstacionamientos.size();
+	public int getCantRegistroDeEst() {
+		return registroDeEstacionamientos.size();
 	}
 	public int getCantCreditos() {
 		return listaDeCreditos.size();
@@ -96,16 +96,16 @@ public class SEM extends Observable{
 		this.registroDeMovimientos.add(ticket);
 	}
 	protected void addCredito(Credito credito) {
-		
-		this.listaDeCreditos.add(credito);
+
+			this.listaDeCreditos.add(credito);
 	}
 	protected void addInfracccion(Infraccion infraccion) {
 		
 		this.listaDeInfracciones.add(infraccion);
 	}
-	protected void addTicketDeEstacionamiento(TicketEst ticket) {
+	protected void addRegistroDeEst(RegistroEst regEst) {
 		
-		this.ticketsDeEstacionamientos.add(ticket);
+		this.registroDeEstacionamientos.add(regEst);
 	}
 	protected void addZonaEstacionamiento(ZonaEstacionamiento zona) {
 		
@@ -119,15 +119,17 @@ public class SEM extends Observable{
 	 */
 	
 	public boolean estaEnInfraccion(String s, int id) {
-		Stream<TicketEst> st = this.ticketsDeEstacionamientos.stream();
+		Stream<RegistroEst> st = this.registroDeEstacionamientos.stream();
 		Stream<ZonaEstacionamiento> st2 = this.zonasEstacionamiento.stream();
 		ZonaEstacionamiento falsa = new ZonaEstacionamiento(id);
 		// en caso de no tener la zona de estacionamineto de ese inpctor, se creara una falsa que indique 
 		// falso en el and para hacer short circuit y no romper el sistema
 		ZonaEstacionamiento z1 = st2.filter(z -> z.getIdInspector() == id).findFirst().orElse(falsa);
 		// esto no falla debido al short circuit
-		TicketEst ticket = st.filter(t -> t.getPatente().equals(s)).findFirst().orElse(null);
-		return (z1.tieneEstacionadoA(s) && (ticket.getHoraMaxima() < this.hora));
+		RegistroEst regEst = st.filter(t -> t.getPatente().equals(s)).findFirst().orElse(null);
+		boolean b1 = (this.hora < 20) && (this.hora > 7);
+		boolean b2 = z1.tieneEstacionadoA(s);
+		return ( b1 && b2 && (regEst.getHoraFinal() < this.hora) );
 
 	}
 	
@@ -140,14 +142,13 @@ public class SEM extends Observable{
 		this.addInfracccion(i);
 	}
 	
-	
-	public void registrarCompraPuntual(String patente, int cantidadHoras, PuntoVenta pv) {
-		TicketEst ticket = new TicketEstPV(this.contadorIdTickets,patente,cantidadHoras,this.getHora(),this.getFecha(),pv);;
-		this.addTicket(ticket);
-		this.addTicketDeEstacionamiento(ticket);
+	public void addEstacionamientoPV(String patente, int horas) {
+		RegistroEst r = new RegistroEst(patente, this.getHora(),horas);
+		this.addRegistroDeEst(r);
 	}
+
 	
-	private void addTicket(Ticket t) {
+	public void addTicket(Ticket t) {
 		this.addTicketHistorico(t);
 		this.contadorIdTickets ++;
 		
@@ -159,20 +160,16 @@ public class SEM extends Observable{
 		Stream<Credito> sc = this.listaDeCreditos.stream();
 		Credito credito = sc.filter(c -> c.getNTelefono() == numeroTelefono).findFirst().orElse(this.nuevoCredito(numeroTelefono));
 		if (credito.getCredito() >= 40d) {
-			TicketEst ticket = new TicketEstApp(this.getContadorIdTickets(),patente,numeroTelefono,this.getHora(),this.getFecha(),credito.getCredito());
-			this.addTicket(ticket);
-			this.addTicketDeEstacionamiento(ticket);
+			RegistroEst r = new RegistroEst(patente, this.getHora(),numeroTelefono,credito.getCredito());
+			this.addRegistroDeEst(r);
+			String notificacion = "Hora de inicio: " + this.getHora() + ", Hora de final: " + r.getHoraFinal();
+			app.notificar(notificacion);
 		} else {
-			this.notifySaldo(app);
+			app.notificar("Saldo insuficiente. Estacionamiento no permitido");
 		}
-		
-
 	}
 
-	private void notifySaldo(AppUsuario app) {
-		// esto le dice a la app que no tiene saldo suficiente 
-		
-	}
+	
 
 	private Credito nuevoCredito(int numeroTelefono) {
 		Credito c = new Credito(numeroTelefono);
@@ -180,31 +177,32 @@ public class SEM extends Observable{
 		return c;
 	}
 
-	// Eliminia la patente del map estacionamientoVigentes.
-	public void removerEstacionamientoDe_(String patente) {
-		
-	}
-	
-	// Eliminia del map estacionadosAPP, y ademas elimina la patente de este del map estacionadosVigentes.
-	public void removerEstacionamientoDe_(int numeroTelefono) {
-		
-	}
-	
 	
 	// Resgista la carga de un telefono en el map credito, y en caso de que ya exista el telefono en el map, habra que
-	// actualizar el saldo del mismo.
-	public void cargarCredito(double credito, int nTelefono) {
-		
+		// actualizar el saldo del mismo.
+	public void cargarCredito(double creditoACargar, int nTelefono) {
+		Stream <Credito> sc = this.listaDeCreditos.stream();
+		Credito credito = sc.filter(c -> c.getNTelefono() == nTelefono).findFirst().orElse(this.nuevoCredito(nTelefono));
+		credito.aumentarCredito(creditoACargar);
 	}
 	
-	/*
-	 * Revisa, si la app puede o no iniciar el estacionamiento. En caso de que no pueda deberia enviar
-	 * el mensaje de error.
-	 * Entraria en el map de credito, revisa si existe credito con el telofono por parametro, e indica cuantas horas
-	 * cubre su saldo(en caso de que este tubiese).
-	 */
-	public void enviarMensajeDeInicioEstacionamiento(Celular telefono) {
 		
+	public void removerEstacionamientoDe_(AppUsuario app) {
+		// precon, el registro asociado al numero esta en los registros del dia y tiene saldo suficiente para hacer el estacionamiento
+		// el numero de teledono no es nunca 0
+		int numeroTelefono = app.getNTelefono();
+		Stream<RegistroEst> s = this.registroDeEstacionamientos.stream();
+		RegistroEst r = s.filter(rc -> rc.getNTelefono() == numeroTelefono).findFirst().orElse(null);
+		this.registroDeEstacionamientos.remove(r);
+		int hI = r.getHoraInicio();
+		int hF = this.getHora();
+		int horasT = hF-hI;
+		double totalP = horasT*40d;
+		Stream <Credito> sc = this.listaDeCreditos.stream();
+		Credito credito = sc.filter(c -> c.getNTelefono() == numeroTelefono).findFirst().orElse(null);
+		credito.decrementarCredito(totalP);
+		String notificacion = "Hora de Inicio: " + hI + " Hora de Fin: " + hF + " Cantidad Horas Estacionado: " + horasT + " Costo: " + totalP;
+		app.notificar(notificacion);
 	}
 	
 	/*
@@ -212,7 +210,8 @@ public class SEM extends Observable{
 	 * Limpia el map estacionamientosVigentes. 
 	 */
 	public void finalizazHorarioVigente() {
-		
+		if (this.getHora() == 20) 
+			this.registroDeEstacionamientos.clear();
 	}
 	
 	
@@ -225,6 +224,9 @@ public class SEM extends Observable{
 		Credito credito = sc.filter(c -> c.getNTelefono() == nTelefono).findFirst().orElse(this.nuevoCredito(nTelefono));
 		return credito.getCredito();
 	}
+
+
+	
 
 	
 }
