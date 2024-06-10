@@ -24,51 +24,26 @@ class ModoAutomaticoTest {
 	@Test
 	void testCambiarModo() {
 		mAuto.cambiarModo(app);
-		verify(app).setModoApp(any(ModoManual.class));
+		verify(app,times(1)).setModoApp(any(ModoManual.class));
 	}
 	
 	@Test
-	void testIniciarEstacionamientoNoVigente() {
+	void testIniciarEstacionamiento() {
 		
 		when(app.getPatentePredeterminada()).thenReturn("AA-000-AA");
-		when(app.getVigente()).thenReturn(false);
 		
 		mAuto.iniciarEstacionamiento();
 		
-		verify(app).inicioDeEstacionamiento("AA-000-AA");
+		verify(app,times(1)).inicioDeEstacionamiento("AA-000-AA");
 	}
 	
 	@Test
-	void testIniciarEstacionamientoVigente() {
-		
-		when(app.getPatentePredeterminada()).thenReturn("AA-000-AA");
-		when(app.getVigente()).thenReturn(true);
-		
-		mAuto.iniciarEstacionamiento();
-		
-		verify(app,times(0)).inicioDeEstacionamiento("AA-000-AA");
-	}
-	
-	@Test
-	void testFinEstacionamientoNoVigente() {
-		
-		when(app.getVigente()).thenReturn(false);
+	void testFinEstacionamiento() {
 		
 		mAuto.finEstacionamiento();
 		
-		verify(app,times(0)).finDeEstacionamiento();
+		verify(app,times(1)).finDeEstacionamiento();
 	}
-	
-	@Test
-	void testFinEstacionamientoVigente() {
-		
-		when(app.getVigente()).thenReturn(true);
-		
-		mAuto.finEstacionamiento();
-		
-		verify(app).finDeEstacionamiento();
-	}
-	
 	
 	@Test
 	void testDeCaminarAManejar() {
@@ -77,7 +52,7 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaManejando();
 		
-		verify(app).finDeEstacionamiento();
+		verify(app,times(1)).finDeEstacionamiento();
 	}
 	
 	@Test
@@ -99,7 +74,7 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaCaminando();
 		
-		verify(app,times(0)).inicioDeEstacionamiento("AA-000-AA");
+		verify(app,times(1)).inicioDeEstacionamiento("AA-000-AA");
 	}
 	
 	@Test
@@ -113,6 +88,6 @@ class ModoAutomaticoTest {
 	@Test
 	void testCambiarModoSensorApagado() {
 		mAuto.cambiarModoSensorApagado();
-		verify(app).setModoApp(any(ModoManual.class));
+		verify(app,times(1)).setModoApp(any(ModoManual.class));
 	}
 }

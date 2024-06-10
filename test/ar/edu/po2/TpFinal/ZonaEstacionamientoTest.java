@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 class ZonaEstacionamientoTest {
 
 	private ZonaEstacionamiento zona;
-	private AppInspector inspector;
 	
 	@BeforeEach
 	void setUp() {

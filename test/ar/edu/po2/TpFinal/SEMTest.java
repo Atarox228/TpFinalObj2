@@ -32,7 +32,7 @@ class SEMTest {
 	}
 
 	@Test
-	void cambniarHoraTest() {
+	void cambiarHoraTest() {
 		SEM.setHora(9);
 		assertEquals(SEM.getHora(),9);
 	}
@@ -165,9 +165,11 @@ class SEMTest {
 	
 	@Test
 	void agregarCompraAppConSaldoSuficienteTest() {
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
 		AppUsuario app = mock(AppUsuario.class);
 		Credito credito = mock(Credito.class);
 		when(app.getNTelefono()).thenReturn(23047067);
+		when(app.getZona()).thenReturn(z1);
 		when(credito.getNTelefono()).thenReturn(23047067);
 		when(credito.getCredito()).thenReturn(40d);
 		int registroDeEstAnteriores = SEM.getCantRegistroDeEst();
@@ -199,6 +201,7 @@ class SEMTest {
 	
 	@Test
 	void eliminarRegistrosTest() {
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
 		AppUsuario app = mock(AppUsuario.class);
 		RegistroEst r1 = mock(RegistroEst.class);
 		RegistroEst r2 = mock(RegistroEst.class);
@@ -208,6 +211,7 @@ class SEMTest {
 		when(r2.getHoraInicio()).thenReturn(8);
 		when(app.getNTelefono()).thenReturn(40047067);
 		when(c.getNTelefono()).thenReturn(40047067);
+		when(app.getZona()).thenReturn(z1);
 		SEM.addRegistroDeEst(r1);
 		SEM.addRegistroDeEst(r2);
 		SEM.addCredito(c);
@@ -219,6 +223,7 @@ class SEMTest {
 	
 	@Test
 	void notificarEliminacion(){
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
 		SEM.setHora(10);
 		String notificacion = "Hora de Inicio: 8 Hora de Fin: 10 Cantidad Horas Estacionado: 2 Costo: 80.0";
 		AppUsuario app = mock(AppUsuario.class);
@@ -230,6 +235,7 @@ class SEMTest {
 		when(r2.getHoraInicio()).thenReturn(8);
 		when(app.getNTelefono()).thenReturn(40047067);
 		when(c.getNTelefono()).thenReturn(40047067);
+		when(app.getZona()).thenReturn(z1);
 		SEM.addRegistroDeEst(r1);
 		SEM.addRegistroDeEst(r2);
 		SEM.addCredito(c);

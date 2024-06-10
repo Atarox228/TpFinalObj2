@@ -7,14 +7,16 @@ public class TicketEst implements Ticket{
 	private int horaInicio;
 	private int idTicket;
 	private PuntoVenta puntoVenta;
+	private int horaMaxima;
 	
 	
-	public TicketEst(int id,String patente, int horaInicio, String fecha, PuntoVenta puntoVenta) {
+	public TicketEst(int id,String patente, int horaInicio, int horaMaxima, String fecha, PuntoVenta puntoVenta) {
 		this.idTicket = id;
 		this.patente = patente;
 		this.fecha = fecha;
 		this.horaInicio = horaInicio;
 		this.puntoVenta = puntoVenta;
+		this.horaMaxima = horaMaxima;
 	}
 	
 	public int getIdTicket() {
@@ -29,8 +31,8 @@ public class TicketEst implements Ticket{
 	public int getHoraInicio() {
 		return horaInicio;
 	}
-	public PuntoVenta getPuntoVenta() {
-		return this.puntoVenta;
+	public int getHoraMaxima() {
+		return horaMaxima;
 	}
 	
 }

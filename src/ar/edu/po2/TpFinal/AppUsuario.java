@@ -9,6 +9,7 @@ public class AppUsuario {
 	private boolean sensorMovimiento;
 	private Celular celular;
 	private boolean vigente;
+	private ZonaEstacionamiento zona;
 	
 	
 	//Constructores
@@ -54,25 +55,30 @@ public class AppUsuario {
 		
 		this.modoApp= modo;
 	  }
+	public ZonaEstacionamiento getZona() {
+		return this.zona;
+	}
 
 	//Metodos
 
 	//Deberia retorna un String indicado cada dato que pide el modelo.
 	//Registra en el SEM que se inicio el estacionamiento. Ademas de mostrar los datos  
 	public void inicioDeEstacionamiento(String patente){
-
+		
+		if (!(this.getVigente())) {
 	    sistemaSEM.registrarEstacionamientoApp(patente,this);
 	    this.cambiarVigente();
 	  }
-	
+	}
 	//Deberia retorna un String indicado cada dato que pide el modelo.
 	//Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
 	public void finDeEstacionamiento(){
 		  
+		if(this.getVigente()) {
 		  sistemaSEM.removerEstacionamientoDe_(this);
 		  this.cambiarVigente();
 	  }
-	  
+	} 
 	//llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
 	public Double consultarSaldo(){
 		  
@@ -112,7 +118,15 @@ public class AppUsuario {
 	}
 
 	public void notificar(String notificacion) {
-		// que notifique al telefono
 		
+		this.celular.notificar(notificacion);
+		
+	}
+
+	public ZonaEstacionamiento obtenerZonaCercana() {
+		
+		ZonaEstacionamiento z = this.sistemaSEM.obtenerZonaCercana();
+		this.zona = z;
+		return z;
 	}
 }

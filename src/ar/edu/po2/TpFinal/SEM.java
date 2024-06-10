@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class SEM extends Observable{
@@ -156,7 +157,9 @@ public class SEM extends Observable{
 	
 	// falta avisar al usuario que se hizo
 	public void registrarEstacionamientoApp(String patente,AppUsuario app) {
+		
 		int numeroTelefono = app.getNTelefono();
+		ZonaEstacionamiento zona = app.getZona();
 		Stream<Credito> sc = this.listaDeCreditos.stream();
 		Credito credito = sc.filter(c -> c.getNTelefono() == numeroTelefono).findFirst().orElse(this.nuevoCredito(numeroTelefono));
 		if (credito.getCredito() >= 40d) {
@@ -164,11 +167,12 @@ public class SEM extends Observable{
 			this.addRegistroDeEst(r);
 			String notificacion = "Hora de inicio: " + this.getHora() + ", Hora de final: " + r.getHoraFinal();
 			app.notificar(notificacion);
+			zona.estacionar(patente);
 		} else {
 			app.notificar("Saldo insuficiente. Estacionamiento no permitido");
 		}
 	}
-
+	
 	
 
 	private Credito nuevoCredito(int numeroTelefono) {
@@ -191,8 +195,10 @@ public class SEM extends Observable{
 		// precon, el registro asociado al numero esta en los registros del dia y tiene saldo suficiente para hacer el estacionamiento
 		// el numero de teledono no es nunca 0
 		int numeroTelefono = app.getNTelefono();
+		ZonaEstacionamiento zona = app.getZona();
 		Stream<RegistroEst> s = this.registroDeEstacionamientos.stream();
 		RegistroEst r = s.filter(rc -> rc.getNTelefono() == numeroTelefono).findFirst().orElse(null);
+		zona.desEstacionar(r.getPatente());
 		this.registroDeEstacionamientos.remove(r);
 		int hI = r.getHoraInicio();
 		int hF = this.getHora();
@@ -223,6 +229,13 @@ public class SEM extends Observable{
 		Stream <Credito> sc = this.listaDeCreditos.stream();
 		Credito credito = sc.filter(c -> c.getNTelefono() == nTelefono).findFirst().orElse(this.nuevoCredito(nTelefono));
 		return credito.getCredito();
+	}
+
+	public ZonaEstacionamiento obtenerZonaCercana() {
+		//precondicion: zonasEstacionamiento no esta vacia
+		Random random = new Random();
+		int indexRandom = random.nextInt(this.getCantZonasEst());
+		return this.zonasEstacionamiento.get(indexRandom);
 	}
 
 

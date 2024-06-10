@@ -12,17 +12,19 @@ public class Celular {
 	private AppUsuario app;
 	
 	//Constructores
-	public Celular(int numero, ZonaEstacionamiento zona) {
+	public Celular(int numero) {
 		
 		this.numero = numero;
-		this.zona = zona;
+		this.zona = null;
 		this.patentes = new ArrayList<String>();
 		this.app = null;
 
 	}
 	
-	public void setZona(ZonaEstacionamiento zona) {
-		this.zona = zona;
+	public void obtenerZonaCercana() {
+		// se mi ubicacion pero no se si estoy en una zonaEstacionamiento valida
+		if(this.appInstalada())
+		this.zona = app.obtenerZonaCercana();
 	}
 	public ZonaEstacionamiento getZona() {
 		return this.zona;
@@ -72,8 +74,10 @@ public class Celular {
 	
 	public void iniciarEstacionamiento(String patente) {
 		
-		if(this.appInstalada())
-		app.inicioDeEstacionamiento(patente);
+		if(this.appInstalada()) {
+			this.obtenerZonaCercana();
+			app.inicioDeEstacionamiento(patente);
+		}
 	}
 	
 	public void finalizarEstacionamiento() {
@@ -92,6 +96,11 @@ public class Celular {
 		
 		if(this.appInstalada())
 			app.cambiarModoApp();;
+	}
+
+	public String notificar(String notificacion) {
+		
+		return notificacion;
 	}
 	
 }

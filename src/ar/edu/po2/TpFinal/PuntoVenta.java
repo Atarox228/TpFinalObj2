@@ -20,15 +20,15 @@ public class PuntoVenta {
 	 * Recibe una patente y una hora, y llama al SEM con el metodo registrarCompraPuntual.
 	 * Ademas crear un tikcet. lo devuelve para hacer la corroboracion en el test, cuando se llama no se pide el debe de guardar en una variable 
 	 */
-	public TicketEst acreditarEst(String patente, int horas) {
+	public TicketEst acreditarEst(String patente, int cantHoras) {
 		 // no manejo concurrencia asi que si dos entidades piden el contador a la vez esto se rompre 
 		// ya que gerena dos tickes con el mismo id
 		int contador = sistemaSEM.getContadorIdTickets();
 		int hora = sistemaSEM.getHora();
 		String fecha = sistemaSEM.getFecha();
-		TicketEst ticket = new TicketEst(contador ,patente, hora,fecha,this);
+		TicketEst ticket = new TicketEst(contador ,patente, hora,cantHoras,fecha,this);
 		sistemaSEM.addTicket(ticket);
-		sistemaSEM.addEstacionamientoPV(patente,horas);
+		sistemaSEM.addEstacionamientoPV(patente,cantHoras);
 		zona.estacionar(patente);
 		return ticket;
 	}

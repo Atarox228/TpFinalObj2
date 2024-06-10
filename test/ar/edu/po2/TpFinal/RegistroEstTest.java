@@ -11,6 +11,7 @@ class RegistroEstTest {
 		RegistroEst registro = new RegistroEst("AA-000-AA",8,8);
 		
 		assertEquals(registro.getPatente(),"AA-000-AA");
+		assertEquals(registro.getHoraInicio(),8);
 		assertEquals(registro.getHoraFinal(),16);
 		assertEquals(registro.getNTelefono(),0);
 	}

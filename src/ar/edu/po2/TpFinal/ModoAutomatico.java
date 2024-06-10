@@ -24,15 +24,13 @@ public class ModoAutomatico implements Modo{
 	//hay que avisar que se hizo automaticamente
 	public void iniciarEstacionamiento(){
 		
-		if (!(app.getVigente())) 
-			this.app.inicioDeEstacionamiento(app.getPatentePredeterminada());
+		this.app.inicioDeEstacionamiento(app.getPatentePredeterminada());
 	}
 	
 	//hay que avisar que se hizo automaticamente
 	public void finEstacionamiento() {
 		
-		if(app.getVigente()) 
-			this.app.finDeEstacionamiento();
+		this.app.finDeEstacionamiento();
 	}
 	
 	// como hay dos estados del movement, entonces los tomamos como boleanos
@@ -43,8 +41,6 @@ public class ModoAutomatico implements Modo{
 			this.finEstacionamiento();
 			cambiarEstado();
 		}
-		
-		
 	}
 
 
@@ -54,7 +50,6 @@ public class ModoAutomatico implements Modo{
 			this.iniciarEstacionamiento();
 			cambiarEstado();
 		}
-		
 	}
 	//protected para los tests
 	protected void cambiarEstado() {

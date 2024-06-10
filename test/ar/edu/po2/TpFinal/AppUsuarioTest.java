@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class AppUsuarioTest {
 	
 	private AppUsuario app;
-	private SEM sistemaSEM;
+	private SEM sem;
 	private Celular cel;
 	private Modo mAuto;
 	private Modo mManual;
@@ -20,9 +20,9 @@ class AppUsuarioTest {
 	@BeforeEach
 	void setUp() {
 		
-		sistemaSEM = mock(SEM.class);
+		sem = mock(SEM.class);
 		cel = mock(Celular.class);
-		app = new AppUsuario("AA-000-AA",sistemaSEM,cel);
+		app = new AppUsuario("AA-000-AA",sem,cel);
 		when(cel.getNumero()).thenReturn(12345);
 		
 		mManual = mock(ModoManual.class);
@@ -38,19 +38,26 @@ class AppUsuarioTest {
 	}
 	
 	@Test
+	void gettersTest() {
+		assertEquals(app.getPatentePredeterminada(),"AA-000-AA");
+		assertFalse(app.getVigente());
+		assertEquals(app.getZona(),null);
+	}
+	
+	@Test
 	void testInicioEstacionamiento() {
 		
 		app.inicioDeEstacionamiento(app.getPatentePredeterminada());
-		verify(sistemaSEM,times(1)).registrarEstacionamientoApp("AA-000-AA",app);
+		verify(sem,times(1)).registrarEstacionamientoApp("AA-000-AA",app);
 		assertTrue(app.getVigente());
 	}
 	
 	@Test
-	void testTinEstacionamiento() {
+	void testFinEstacionamiento() {
 		
 		app.inicioDeEstacionamiento(app.getPatentePredeterminada());
 		app.finDeEstacionamiento();
-		verify(sistemaSEM,times(1)).removerEstacionamientoDe_(app.getNTelefono());
+		verify(sem,times(1)).removerEstacionamientoDe_(app);
 		assertFalse(app.getVigente());
 	}
 	
@@ -58,7 +65,7 @@ class AppUsuarioTest {
 	void testConsultarSaldo() {
 		
 		Double saldo = app.consultarSaldo();
-		verify(sistemaSEM).consultarSaldoDe_(app.getNTelefono());
+		verify(sem).consultarSaldoDe_(app.getNTelefono());
 		assertEquals(saldo,0);
 		
 	}
@@ -130,5 +137,25 @@ class AppUsuarioTest {
 		verify(mManual,times(0)).estaManejando();
 		verify(mManual,times(0)).estaCaminando();;
 		
+	}
+	
+	@Test
+	void testObtenerZonaCerca() {
+		
+		ZonaEstacionamiento zona = mock(ZonaEstacionamiento.class);
+		when(sem.obtenerZonaCercana()).thenReturn(zona);
+		
+		ZonaEstacionamiento zona2 = app.obtenerZonaCercana();
+		
+		assertEquals(zona,zona2);
+	}
+	
+	@Test
+	void testNotificar() {
+		
+		String mensaje = "Saldo insuficiente";
+		app.notificar(mensaje);
+		
+		verify(cel,times(1)).notificar(mensaje);
 	}
 }

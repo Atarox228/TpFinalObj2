@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,14 @@ class CelularTest {
 	private Celular cel;
 	private AppUsuario app;
 	private ZonaEstacionamiento zona;
+	private SEM sem;
 	
 	@BeforeEach
 	void setUp() {
 		zona = mock(ZonaEstacionamiento.class);
-		cel = new Celular(1159045262,zona);
+		cel = new Celular(1159045262);
 		app = mock(AppUsuario.class);
+		
 	}
 	
 	@Test
@@ -29,7 +32,7 @@ class CelularTest {
 		ZonaEstacionamiento zona1 = cel.getZona();
 		//Verify
 		assertEquals(num, 1159045262);
-		assertEquals(zona1, zona);
+		assertEquals(zona1, null);
 	}
 	
 	@Test
@@ -37,10 +40,11 @@ class CelularTest {
 		
 		//SetUp
 		ZonaEstacionamiento zona1 = mock(ZonaEstacionamiento.class);
+		when(app.obtenerZonaCercana()).thenReturn(zona1);
 		
 		//Exercise
 		cel.descargarApp(app);
-		cel.setZona(zona1);
+		cel.obtenerZonaCercana();
 		
 		//Verify
 		assertEquals(cel.getZona(), zona1);
@@ -119,5 +123,26 @@ class CelularTest {
 		verify(app, times(0)).finDeEstacionamiento();
 		verify(app, times(0)).consultarSaldo();
 		verify(app, times(0)).cambiarModoApp();
+	}
+	
+	@Test
+	void celularNoPuedeDescargarDosAppsTest() {
+		
+		AppUsuario app2 = mock(AppUsuario.class);
+		cel.descargarApp(app);
+		cel.descargarApp(app2);
+		
+		assertEquals(cel.getApp(),app);
+		
+	}
+	
+	@Test
+	void notificarTest() {
+		
+		String mensaje = "Saldo insuficiente. Estacionamiento no permitido";
+		app.notificar(mensaje);
+		String mensaje1 = cel.notificar(mensaje);
+		
+		assertEquals(mensaje1, mensaje);
 	}
 }
