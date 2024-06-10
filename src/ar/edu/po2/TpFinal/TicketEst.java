@@ -14,8 +14,6 @@ public abstract class TicketEst implements Ticket{
 		this.fecha = fecha;
 		this.horaInicio = horaInicio;
 	}
-	public TicketEst() {
-	}
 
 	public abstract int getHoraMaxima();
 	

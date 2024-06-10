@@ -29,6 +29,7 @@ public class Celular {
 	}
 	public void descargarApp(AppUsuario app) {
 		
+		if(this.app == null)
 		this.app = app;
 	}
 	public AppUsuario getApp() {

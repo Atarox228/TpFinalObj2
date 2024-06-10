@@ -218,9 +218,12 @@ public class SEM extends Observable{
 	
 	// Añadir de Lista.
 	
-	public void consultarSaldoDe_(int numero) {
+	public Double consultarSaldoDe_(int nTelefono) {
 		
 		//mediante un stream(listaDeCreditos) deberia devolver el saldo asignado al numero pasado
+		Stream <Credito> sc = this.listaDeCreditos.stream();
+		Credito credito = sc.filter(c -> c.getNTelefono() == nTelefono).findFirst().orElse(this.nuevoCredito(nTelefono));
+		return credito.getCredito();
 	}
 
 	
