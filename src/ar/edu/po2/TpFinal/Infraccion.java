@@ -4,7 +4,7 @@ package ar.edu.po2.TpFinal;
 
 public class Infraccion {
 
-	//Instancia de Variables
+	//Variables de Instancia
 	
 	String patente;
 	String fecha;

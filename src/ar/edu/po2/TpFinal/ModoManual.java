@@ -2,13 +2,16 @@ package ar.edu.po2.TpFinal;
 
 public class ModoManual implements Modo {
 
+	//Variables de Instancia
 	private AppUsuario app;
 	
+	//Constructores
 	public ModoManual(AppUsuario app) {
 		
 		this.app = app;
 	}
 	
+	//Metodos
 	@Override
 	public void cambiarModo(AppUsuario app) {
 		

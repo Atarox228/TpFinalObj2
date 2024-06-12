@@ -2,7 +2,7 @@ package ar.edu.po2.TpFinal;
 
 public class AppInspector {
 
-	//Instancia de Variables
+	//Variables de Instancia
 	
 	private int id;
 	private SEM sistemaSEM;
@@ -21,15 +21,7 @@ public class AppInspector {
 		return sistemaSEM;
 	}
 
-
-	
 	//Metodos
-	
-	/*
-	 * Indica si la patente por parametro tiene un estacionamiento vigente.
-	 * 
-	 */
-	
 	
 	public void altaDeInfraccion(String patente) {
 		this.sistemaSEM.altaDeInfraccion(patente,this.getId());

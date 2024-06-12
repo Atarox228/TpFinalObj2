@@ -16,10 +16,6 @@ public class PuntoVenta {
 	
 	//Metodos
 	
-	/*
-	 * Recibe una patente y una hora, y llama al SEM con el metodo registrarCompraPuntual.
-	 * Ademas crear un tikcet. lo devuelve para hacer la corroboracion en el test, cuando se llama no se pide el debe de guardar en una variable 
-	 */
 	public TicketEst acreditarEst(String patente, int cantHoras) {
 		 // no manejo concurrencia asi que si dos entidades piden el contador a la vez esto se rompre 
 		// ya que gerena dos tickes con el mismo id
@@ -33,10 +29,6 @@ public class PuntoVenta {
 		return ticket;
 	}
 	
-	/*
-	 * Recibe un monto y un telefono, y llama al Sem con el metodo cargarCredito.
-	 * Ademas crear un tikcet.
-	 */
 	public TicketSaldo cargarSaldo(Double monto, int nTelefono) {
          // no manejo concurrencia asi que si dos entidades piden el contador a la vez esto se rompre 
 		// ya que gerena dos tickes con el mismo id
