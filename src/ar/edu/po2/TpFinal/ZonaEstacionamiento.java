@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ZonaEstacionamiento {
 
-	//Instancia de Variables
+	//Variables de Instancia
 	private int idInspector;
 	private List<String> patentes;
 	private List<PuntoVenta> puntosDeVentas;
@@ -19,7 +19,20 @@ public class ZonaEstacionamiento {
 		this.puntosDeVentas = new ArrayList<PuntoVenta>();
 		
 	}
-	
+
+	//Getters y Setters
+	public int getIdInspector() {
+		
+		return this.idInspector;
+	}
+	public int getPatentesSize() {
+		
+		return this.patentes.size();
+	}
+	public int getPuntosDeVentasSize() {
+		
+		return this.puntosDeVentas.size();
+	}
 	//Metodos
 	
 	/*
@@ -50,19 +63,6 @@ public class ZonaEstacionamiento {
 	public void quitarPuntoVenta(PuntoVenta puntoVenta) {
 		
 		this.puntosDeVentas.remove(puntoVenta);
-	}
-	
-	public int getIdInspector() {
-		
-		return this.idInspector;
-	}
-	public int getPatentesSize() {
-		
-		return this.patentes.size();
-	}
-	public int getPuntosDeVentasSize() {
-		
-		return this.puntosDeVentas.size();
 	}
 
 	public boolean tieneEstacionadoA(String patente) {

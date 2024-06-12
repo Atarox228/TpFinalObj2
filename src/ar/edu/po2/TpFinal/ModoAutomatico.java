@@ -3,16 +3,19 @@ package ar.edu.po2.TpFinal;
 public class ModoAutomatico implements Modo{
 	
 	
+	//Variables de Instancia
+	
 	private AppUsuario app;
 	private boolean estadoCaminando;
 	
+	//Constructor
 	public ModoAutomatico(AppUsuario app) {
 		
 		this.app = app;
 		this.estadoCaminando = true;
 	}
 	
-	
+	//Metodos
 	@Override
 	public void cambiarModo(AppUsuario app) {
 		

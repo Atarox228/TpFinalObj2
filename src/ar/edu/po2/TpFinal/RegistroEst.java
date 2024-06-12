@@ -2,11 +2,13 @@ package ar.edu.po2.TpFinal;
 
 public class RegistroEst {
 	
+	//Variables de Instancia
 	private String patente;
 	private int horaInicio;
 	private int horaFinal;
 	private int nTelefono;
 	
+	//Constructores
 	public RegistroEst(String patente, int horaInicio, int horas) {
 		// estacionamiento por compra puntual
 		super();
@@ -28,10 +30,9 @@ public class RegistroEst {
 		} else {
 			this.horaFinal = horaInicio + horasPosibles;
 		}
-		
-		
 	}
 
+	//Metodos
 	public String getPatente() {
 		return patente;
 	}

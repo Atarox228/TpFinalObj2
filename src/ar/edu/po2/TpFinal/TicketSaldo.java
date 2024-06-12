@@ -22,6 +22,7 @@ public class TicketSaldo implements Ticket{
 		this.monto = monto;
 	}
 
+	//Metodos
 	public int getIdTicket() {
 		return IdTicket;
 	}

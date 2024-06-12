@@ -2,13 +2,13 @@ package ar.edu.po2.TpFinal;
 
 public class AppUsuario {
 
-	//Instancia de Variables
+	//Variables de Instancia
 	private String patentePredeterminada;
 	private SEM sistemaSEM;
 	private Modo modoApp;
 	private boolean sensorMovimiento;
 	private Celular celular;
-	private boolean vigente;
+	private boolean vigente; //Es una bandera para corroborar que automatico no inicie otro estacionamiento
 	private ZonaEstacionamiento zona;
 	
 	
@@ -37,7 +37,6 @@ public class AppUsuario {
 		return celular.getNumero();
 	}
 	
-	//Es una bandera para corroborar que automatico no inicie otro estacionamiento
 	public boolean getVigente() {
 		
 		return this.vigente;
@@ -59,10 +58,7 @@ public class AppUsuario {
 		return this.zona;
 	}
 
-	//Metodos
-
-	//Deberia retorna un String indicado cada dato que pide el modelo.
-	//Registra en el SEM que se inicio el estacionamiento. Ademas de mostrar los datos  
+	//Metodos 
 	
 	public void inicioDeEstacionamiento(String patente){
 		modoApp.inicioDeEstacionamiento(patente);
@@ -72,16 +68,14 @@ public class AppUsuario {
 		modoApp.finDeEstacionamiento();
 	}
 	
-	public void inicioDeEstacionamientoApp(String patente){
+	protected void inicioDeEstacionamientoApp(String patente){
 		
 		if (!(this.getVigente())) {
 	    sistemaSEM.registrarEstacionamientoApp(patente,this);
 	    this.cambiarVigente();
 	  }
 	}
-	//Deberia retorna un String indicado cada dato que pide el modelo.
-	//Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
-	public void finDeEstacionamientoApp(){
+	protected void finDeEstacionamientoApp(){
 		  
 		if(this.getVigente()) {
 		  sistemaSEM.removerEstacionamientoDe_(this);

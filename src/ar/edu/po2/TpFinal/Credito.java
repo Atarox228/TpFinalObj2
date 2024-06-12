@@ -2,7 +2,7 @@ package ar.edu.po2.TpFinal;
 
 public class Credito {
 
-	//Instancia de variables
+	//Variables de Instancia
 	private int nTelefono;
 	private double credito;
 	

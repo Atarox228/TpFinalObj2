@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Celular {
 
-	//Instacia de Variables
+	//Variables de Instancia
 	private int numero; // Numero de celular que es unico.
 	private ZonaEstacionamiento zona; // Si no me equivoco un auto ya conoce la zona. 
 	private List<String> patentes; 
@@ -44,10 +44,6 @@ public class Celular {
 	}
 	
 	//Metodos
-	
-	/*
-	 * Retorna el numero del telefono/celular
-	 */
 	
 	protected void addPatente(String patente) {
 		patentes.add(patente);
