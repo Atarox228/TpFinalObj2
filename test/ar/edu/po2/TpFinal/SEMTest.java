@@ -285,4 +285,49 @@ class SEMTest {
 		
 		assertFalse(SEM.estaEnInfraccion("AA-000-AA", 2546));
 	}
+	
+	@Test
+	void agregaRegistrosCorrectamente() {
+
+		int cantRegistrosAnteriores = SEM.getCantRegistroDeEst();
+		
+		SEM.addEstacionamientoPV("AA-000-AA", 5);
+		
+		assertEquals(SEM.getCantRegistroDeEst(), cantRegistrosAnteriores + 1);
+	}
+	
+	@Test
+	void testConsultaDeCreditoNoExistente() {
+		
+		int cantCreditoAnterior = SEM.getCantCreditos();
+		double credito = SEM.consultarSaldoDe_(1159045262);
+		
+		assertEquals(credito,0);
+		assertEquals(SEM.getCantCreditos(),cantCreditoAnterior +1);
+	}
+	
+	@Test
+	void testConsultaDeCreditoExistente() {
+		
+		Credito c1 = mock(Credito.class); 
+		when(c1.getCredito()).thenReturn(100d);
+		when(c1.getNTelefono()).thenReturn(1159045262);
+		SEM.addCredito(c1);
+		
+		double credito = SEM.consultarSaldoDe_(1159045262);
+		
+		assertEquals(credito,100);
+	}
+	
+	@Test
+	void testObtenerZonaEstacionamientoCercana() {
+		//Simula una zona cercana pero te da una cualquiera dentro de la lista de zonasEstacionamiento
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
+		SEM.addZonaEstacionamiento(z1);
+		
+		ZonaEstacionamiento zona = SEM.obtenerZonaCercana();
+		
+		assertEquals(zona,z1);
+		
+	}
 }
