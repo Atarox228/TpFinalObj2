@@ -39,14 +39,10 @@ public class ZonaEstacionamiento {
 		
 		this.patentes.remove(patente);
 		Random random = new Random();
-		int indexRandom = random.nextInt(this.getCantPuntoDeVenta());
+		int indexRandom = random.nextInt(this.getPuntosDeVentasSize());
 		PuntoVenta p =  this.puntosDeVentas.get(indexRandom);
 		p.finEstacionamiento();
 	}
-	private int getCantPuntoDeVenta() {
-		return this.puntosDeVentas.size();
-	}
-
 	public void agregarPuntoVenta(PuntoVenta puntoVenta) {
 		
 		this.puntosDeVentas.add(puntoVenta);

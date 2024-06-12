@@ -18,7 +18,7 @@ public class AppUsuario {
 		super();
 		this.patentePredeterminada = patentePredeterminada;
 		this.sistemaSEM = sistemaSEM;
-		this.modoApp = new ModoManual();
+		this.modoApp = new ModoManual(this);
 		this.celular = celular;
 		this.vigente = false;
 		this.sensorMovimiento = false;
@@ -63,7 +63,16 @@ public class AppUsuario {
 
 	//Deberia retorna un String indicado cada dato que pide el modelo.
 	//Registra en el SEM que se inicio el estacionamiento. Ademas de mostrar los datos  
+	
 	public void inicioDeEstacionamiento(String patente){
+		modoApp.inicioDeEstacionamiento(patente);
+	}
+	
+	public void finDeEstacionamiento(){
+		modoApp.finDeEstacionamiento();
+	}
+	
+	public void inicioDeEstacionamientoApp(String patente){
 		
 		if (!(this.getVigente())) {
 	    sistemaSEM.registrarEstacionamientoApp(patente,this);
@@ -72,14 +81,13 @@ public class AppUsuario {
 	}
 	//Deberia retorna un String indicado cada dato que pide el modelo.
 	//Llama al SEM con el metodo removerEstacionamientoDe_(nTelefono). Ademas de mostrar los datos 
-	public void finDeEstacionamiento(){
+	public void finDeEstacionamientoApp(){
 		  
 		if(this.getVigente()) {
 		  sistemaSEM.removerEstacionamientoDe_(this);
 		  this.cambiarVigente();
 	  }
 	} 
-	//llama al SEM con el metodo consultarSaldoDe(numero) y que devuelva un double. Salta excepcion si nunca cargo credito
 	public Double consultarSaldo(){
 		  
 		  return sistemaSEM.consultarSaldoDe_(this.getNTelefono());
@@ -100,6 +108,18 @@ public class AppUsuario {
 		
 		if(sensorPrendido())
 		this.modoApp.estaCaminando();
+	}
+	
+	public void cambiarEstadoSensor() {
+		
+		if(this.sensorPrendido()) {
+			this.apagarSensor();
+		}
+		else
+		{
+			this.encenderSensor();
+		}
+		
 	}
 
 	public void encenderSensor() {

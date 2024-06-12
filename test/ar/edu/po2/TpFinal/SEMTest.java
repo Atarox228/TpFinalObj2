@@ -378,7 +378,7 @@ class SEMTest {
 		 Observer o = mock(Observer.class);
 			RegistroEst r = mock(RegistroEst.class);
 			SEM.addObserver(o);
-			SEM.finEstacionamiento();
+			SEM.allNotify();
 			verify(o).update(SEM, null);
 	 }
 }

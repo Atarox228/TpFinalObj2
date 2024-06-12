@@ -1,6 +1,6 @@
 package ar.edu.po2.TpFinal;
 
-import java.time.LocalDate;
+
 
 public class Infraccion {
 

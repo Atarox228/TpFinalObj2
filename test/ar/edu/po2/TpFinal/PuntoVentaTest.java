@@ -44,7 +44,7 @@ class PuntoVentaTest {
 	@Test
 	void anunciarFinDeEstacionamiento() {
 		punto.finEstacionamiento();
-		verify(sistemaSEM).finEstacionamiento();
+		verify(sistemaSEM).allNotify();
 	}
 
 

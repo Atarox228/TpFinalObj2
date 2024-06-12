@@ -16,7 +16,7 @@ public class ModoAutomatico implements Modo{
 	@Override
 	public void cambiarModo(AppUsuario app) {
 		
-		Modo m = new ModoManual();
+		Modo m = new ModoManual(app);
 		this.app.setModoApp(m);
 		
 	}
@@ -24,13 +24,15 @@ public class ModoAutomatico implements Modo{
 	//hay que avisar que se hizo automaticamente
 	public void iniciarEstacionamiento(){
 		
-		this.app.inicioDeEstacionamiento(app.getPatentePredeterminada());
+		this.app.notificar("Inicio de Estacionamiento Automatico");
+		this.app.inicioDeEstacionamientoApp(app.getPatentePredeterminada());
 	}
 	
 	//hay que avisar que se hizo automaticamente
-	public void finEstacionamiento() {
+	public void finalizarEstacionamiento() {
 		
-		this.app.finDeEstacionamiento();
+		this.app.notificar("Fin de estacionamiento Automatico");
+		this.app.finDeEstacionamientoApp();
 	}
 	
 	// como hay dos estados del movement, entonces los tomamos como boleanos
@@ -38,7 +40,7 @@ public class ModoAutomatico implements Modo{
 	@Override
 	public void estaManejando() {
 		if (this.estadoCaminando) {
-			this.finEstacionamiento();
+			this.finalizarEstacionamiento();
 			cambiarEstado();
 		}
 	}
@@ -60,6 +62,20 @@ public class ModoAutomatico implements Modo{
 	@Override
 	public void cambiarModoSensorApagado() {
 		this.cambiarModo(app);
+		
+	}
+
+
+	@Override
+	public void finDeEstacionamiento() {
+		
+		
+	}
+
+
+	@Override
+	public void inicioDeEstacionamiento(String patente) {
+		
 		
 	}
 

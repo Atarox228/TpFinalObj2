@@ -2,6 +2,12 @@ package ar.edu.po2.TpFinal;
 
 public class ModoManual implements Modo {
 
+	private AppUsuario app;
+	
+	public ModoManual(AppUsuario app) {
+		
+		this.app = app;
+	}
 	
 	@Override
 	public void cambiarModo(AppUsuario app) {
@@ -25,6 +31,18 @@ public class ModoManual implements Modo {
 	@Override
 	public void cambiarModoSensorApagado() {
 		
+	}
+
+	@Override
+	public void finDeEstacionamiento() {
+		
+		app.finDeEstacionamientoApp();
+	}
+
+	@Override
+	public void inicioDeEstacionamiento(String patente) {
+		
+		app.inicioDeEstacionamientoApp(patente);
 	}
 
 }

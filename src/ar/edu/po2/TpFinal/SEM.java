@@ -2,7 +2,6 @@ package ar.edu.po2.TpFinal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -107,9 +106,9 @@ public class SEM extends Observable{
 	protected void addRegistroDeEst(RegistroEst regEst) {
 		
 		this.registroDeEstacionamientos.add(regEst);
-		this.setChanged();
-		this.notifyObservers();;
+		this.allNotify();
 	}
+
 	protected void addZonaEstacionamiento(ZonaEstacionamiento zona) {
 		
 		this.zonasEstacionamiento.add(zona);
@@ -241,7 +240,7 @@ public class SEM extends Observable{
 		return this.zonasEstacionamiento.get(indexRandom);
 	}
 
-	public void finEstacionamiento() {
+	public void allNotify() {
 		this.setChanged();
 		this.notifyObservers();;	
 	}

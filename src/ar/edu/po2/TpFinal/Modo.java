@@ -8,4 +8,8 @@ public interface Modo {
 	public void estaCaminando();
 
 	public void cambiarModoSensorApagado();
+
+	public void finDeEstacionamiento();
+
+	public void inicioDeEstacionamiento(String patente);
 }

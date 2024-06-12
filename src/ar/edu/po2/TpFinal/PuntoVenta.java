@@ -26,7 +26,7 @@ public class PuntoVenta {
 		int contador = sistemaSEM.getContadorIdTickets();
 		int hora = sistemaSEM.getHora();
 		String fecha = sistemaSEM.getFecha();
-		TicketEst ticket = new TicketEst(contador ,patente, hora,cantHoras,fecha,this);
+		TicketEst ticket = new TicketEst(contador,fecha,patente, hora,cantHoras,this);
 		sistemaSEM.addTicket(ticket);
 		sistemaSEM.addEstacionamientoPV(patente,cantHoras);
 		zona.estacionar(patente);
@@ -50,7 +50,7 @@ public class PuntoVenta {
 	}
 
 	public void finEstacionamiento() {
-		this.sistemaSEM.finEstacionamiento();
+		this.sistemaSEM.allNotify();
 		
 	}
 }

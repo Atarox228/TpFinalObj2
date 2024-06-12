@@ -13,12 +13,9 @@ class CelularTest {
 
 	private Celular cel;
 	private AppUsuario app;
-	private ZonaEstacionamiento zona;
-	private SEM sem;
 	
 	@BeforeEach
 	void setUp() {
-		zona = mock(ZonaEstacionamiento.class);
 		cel = new Celular(1159045262);
 		app = mock(AppUsuario.class);
 		
@@ -144,5 +141,12 @@ class CelularTest {
 		String mensaje1 = cel.notificar(mensaje);
 		
 		assertEquals(mensaje1, mensaje);
+	}
+	
+	@Test
+	void cambiarEstadoSensorTest() {
+		cel.descargarApp(app);
+		cel.cambiarEstadoSensor();
+		verify(app,times(1)).cambiarEstadoSensor();
 	}
 }

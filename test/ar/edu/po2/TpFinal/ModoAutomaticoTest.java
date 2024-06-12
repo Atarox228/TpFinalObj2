@@ -1,6 +1,5 @@
 package ar.edu.po2.TpFinal;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -34,15 +33,15 @@ class ModoAutomaticoTest {
 		
 		mAuto.iniciarEstacionamiento();
 		
-		verify(app,times(1)).inicioDeEstacionamiento("AA-000-AA");
+		verify(app,times(1)).inicioDeEstacionamientoApp("AA-000-AA");
 	}
 	
 	@Test
 	void testFinEstacionamiento() {
 		
-		mAuto.finEstacionamiento();
+		mAuto.finalizarEstacionamiento();
 		
-		verify(app,times(1)).finDeEstacionamiento();
+		verify(app,times(1)).finDeEstacionamientoApp();
 	}
 	
 	@Test
@@ -52,7 +51,7 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaManejando();
 		
-		verify(app,times(1)).finDeEstacionamiento();
+		verify(app,times(1)).finDeEstacionamientoApp();
 	}
 	
 	@Test
@@ -62,7 +61,7 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaManejando();
 		
-		verify(app,times(0)).finDeEstacionamiento();
+		verify(app,times(0)).finDeEstacionamientoApp();
 	}
 	
 	@Test
@@ -74,7 +73,7 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaCaminando();
 		
-		verify(app,times(1)).inicioDeEstacionamiento("AA-000-AA");
+		verify(app,times(1)).inicioDeEstacionamientoApp("AA-000-AA");
 	}
 	
 	@Test
@@ -82,12 +81,18 @@ class ModoAutomaticoTest {
 		
 		mAuto.estaCaminando();
 		
-		verify(app,times(0)).inicioDeEstacionamiento("AA-000-AA");
+		verify(app,times(0)).inicioDeEstacionamientoApp("AA-000-AA");
 	}
 	
 	@Test
 	void testCambiarModoSensorApagado() {
 		mAuto.cambiarModoSensorApagado();
 		verify(app,times(1)).setModoApp(any(ModoManual.class));
+	}
+	
+	@Test
+	void comportamientoDeInterfazNoUsado() {
+		mAuto.inicioDeEstacionamiento("AA-000-AA");
+		mAuto.finDeEstacionamiento();
 	}
 }

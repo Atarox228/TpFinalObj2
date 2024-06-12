@@ -45,20 +45,46 @@ class AppUsuarioTest {
 	}
 	
 	@Test
-	void testInicioEstacionamiento() {
+	void testInicioEstacionamientoApp() {
 		
-		app.inicioDeEstacionamiento(app.getPatentePredeterminada());
+		app.inicioDeEstacionamientoApp(app.getPatentePredeterminada());
 		verify(sem,times(1)).registrarEstacionamientoApp("AA-000-AA",app);
 		assertTrue(app.getVigente());
 	}
 	
 	@Test
-	void testFinEstacionamiento() {
+	void testInicioDeEstacionamientoManual() {
+		app.setModoApp(mManual);
+		app.inicioDeEstacionamiento("AA-000-AA");
 		
-		app.inicioDeEstacionamiento(app.getPatentePredeterminada());
-		app.finDeEstacionamiento();
+		verify(mManual,times(1)).inicioDeEstacionamiento("AA-000-AA");
+	}
+	
+	@Test
+	void testFinEstacionamientoApp() {
+		
+		app.inicioDeEstacionamientoApp(app.getPatentePredeterminada());
+		app.finDeEstacionamientoApp();
 		verify(sem,times(1)).removerEstacionamientoDe_(app);
 		assertFalse(app.getVigente());
+	}
+	
+	@Test
+	void testFinDeEstacionamientoManual() {
+		app.setModoApp(mManual);
+		app.inicioDeEstacionamiento("AA-000-AA");
+		app.finDeEstacionamiento();
+		
+		verify(mManual,times(1)).finDeEstacionamiento();
+	}
+	
+	@Test
+	void testFinDeEstacionamientoAutomatico() {
+		app.setModoApp(mAuto);
+		app.inicioDeEstacionamiento("AA-000-AA");
+		app.finDeEstacionamiento();
+		
+		verify(mAuto,times(1)).finDeEstacionamiento();
 	}
 	
 	@Test
@@ -104,7 +130,6 @@ class AppUsuarioTest {
 		
 		app.cambiarModoApp();
 		verify(mManual).cambiarModo(app);
-		//assertTrue(app.sensorPrendido());
 	}
 	
 	@Test
@@ -157,5 +182,23 @@ class AppUsuarioTest {
 		app.notificar(mensaje);
 		
 		verify(cel,times(1)).notificar(mensaje);
+	}
+	
+	@Test
+	void testCambiarEstadoSensorAPrendido() {
+		
+		
+		app.cambiarEstadoSensor();
+		
+		assertTrue(app.sensorPrendido());
+	}
+	
+	@Test
+	void testCambiarEstadoSensorAApagado() {
+		
+		app.encenderSensor();
+		app.cambiarEstadoSensor();
+		
+		assertFalse(app.sensorPrendido());
 	}
 }
