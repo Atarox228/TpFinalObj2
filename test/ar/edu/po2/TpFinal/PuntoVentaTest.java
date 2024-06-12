@@ -40,5 +40,12 @@ class PuntoVentaTest {
 		verify(sistemaSEM,times(1)).cargarCredito(40d,23047067);
 	
 	}
+	
+	@Test
+	void anunciarFinDeEstacionamiento() {
+		punto.finEstacionamiento();
+		verify(sistemaSEM).finEstacionamiento();
+	}
+
 
 }

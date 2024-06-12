@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Observer;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -330,4 +332,53 @@ class SEMTest {
 		assertEquals(zona,z1);
 		
 	}
+	
+	
+	@Test
+	void observablTest() {
+		assertEquals(SEM.countObservers(),0);
+	}
+	
+	@Test
+	void addObserverTest() {
+		Observer o = mock(Observer.class);
+		SEM.addObserver(o);
+		assertEquals(SEM.countObservers(),1);
+	}
+	
+	@Test
+	void removeObserverTest() {
+		Observer o = mock(Observer.class);
+		SEM.addObserver(o);
+		SEM.deleteObserver(o);
+		assertEquals(SEM.countObservers(),0);
+	}
+	
+	@Test
+	void removeAllObserverTest() {
+		Observer o = mock(Observer.class);
+		Observer o2 = mock(Observer.class);
+		SEM.addObserver(o);
+		SEM.addObserver(o2);
+		SEM.deleteObservers();
+		assertEquals(SEM.countObservers(),0);
+	}
+	
+	@Test
+	void notifyInicioDeEstObserverTest() {
+		Observer o = mock(Observer.class);
+		RegistroEst r = mock(RegistroEst.class);
+		SEM.addObserver(o);
+		SEM.addRegistroDeEst(r);
+		verify(o).update(SEM, null);
+	}
+	
+	 @Test
+	 void notifyFinTest() {
+		 Observer o = mock(Observer.class);
+			RegistroEst r = mock(RegistroEst.class);
+			SEM.addObserver(o);
+			SEM.finEstacionamiento();
+			verify(o).update(SEM, null);
+	 }
 }

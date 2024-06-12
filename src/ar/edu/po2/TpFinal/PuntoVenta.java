@@ -48,4 +48,9 @@ public class PuntoVenta {
 		sistemaSEM.cargarCredito(monto, nTelefono);
 		return ticket;
 	}
+
+	public void finEstacionamiento() {
+		this.sistemaSEM.finEstacionamiento();
+		
+	}
 }

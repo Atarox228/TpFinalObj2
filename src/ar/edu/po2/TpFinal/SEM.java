@@ -107,6 +107,8 @@ public class SEM extends Observable{
 	protected void addRegistroDeEst(RegistroEst regEst) {
 		
 		this.registroDeEstacionamientos.add(regEst);
+		this.setChanged();
+		this.notifyObservers();;
 	}
 	protected void addZonaEstacionamiento(ZonaEstacionamiento zona) {
 		
@@ -209,6 +211,7 @@ public class SEM extends Observable{
 		credito.decrementarCredito(totalP);
 		String notificacion = "Hora de Inicio: " + hI + " Hora de Fin: " + hF + " Cantidad Horas Estacionado: " + horasT + " Costo: " + totalP;
 		app.notificar(notificacion);
+
 	}
 	
 	/*
@@ -236,6 +239,11 @@ public class SEM extends Observable{
 		Random random = new Random();
 		int indexRandom = random.nextInt(this.getCantZonasEst());
 		return this.zonasEstacionamiento.get(indexRandom);
+	}
+
+	public void finEstacionamiento() {
+		this.setChanged();
+		this.notifyObservers();;	
 	}
 
 

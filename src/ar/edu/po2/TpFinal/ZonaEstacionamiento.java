@@ -1,6 +1,7 @@
 package ar.edu.po2.TpFinal;
 
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class ZonaEstacionamiento {
@@ -37,7 +38,15 @@ public class ZonaEstacionamiento {
 	public void desEstacionar(String patente) {
 		
 		this.patentes.remove(patente);
+		Random random = new Random();
+		int indexRandom = random.nextInt(this.getCantPuntoDeVenta());
+		PuntoVenta p =  this.puntosDeVentas.get(indexRandom);
+		p.finEstacionamiento();
 	}
+	private int getCantPuntoDeVenta() {
+		return this.puntosDeVentas.size();
+	}
+
 	public void agregarPuntoVenta(PuntoVenta puntoVenta) {
 		
 		this.puntosDeVentas.add(puntoVenta);

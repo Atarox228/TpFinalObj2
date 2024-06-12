@@ -29,14 +29,7 @@ class ZonaEstacionamientoTest {
 		
 		assertEquals(zona.getPatentesSize(),1);
 	}
-	@Test
-	void eliminarPatenteTest() {
-		
-		zona.estacionar("AA-000-AA");
-		zona.desEstacionar("AA-000-AA");
-		
-		assertEquals(zona.getPatentesSize(),0);
-	}
+
 	@Test
 	void agregarPuntoVentaTest() {
 		
@@ -46,9 +39,21 @@ class ZonaEstacionamientoTest {
 		assertEquals(zona.getPuntosDeVentasSize(),1);
 		
 	}
+	
+	@Test
+	void eliminarPatenteTest() {
+		PuntoVenta p = mock(PuntoVenta.class);
+		zona.agregarPuntoVenta(p);
+		zona.estacionar("AA-000-AA");
+		zona.desEstacionar("AA-000-AA");
+		
+		assertEquals(zona.getPatentesSize(),0);
+	}
 	@Test
 	void eliminarPatenteInexistenteTest() {
 		
+		PuntoVenta p = mock(PuntoVenta.class);
+		zona.agregarPuntoVenta(p);
 		zona.desEstacionar("AA-000-AA");
 		
 		assertEquals(zona.getPatentesSize(),0);
