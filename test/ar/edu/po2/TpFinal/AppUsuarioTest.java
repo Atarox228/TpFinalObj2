@@ -167,5 +167,12 @@ class AppUsuarioTest {
 		
 		verify(cel,times(1)).notificar(mensaje);
 	}
-	
+	@Test
+	void testNotificarSensorApagado() {
+		
+		app.setModoApp(mAuto);
+		app.notificarSensorApagado();
+		
+		verify(mAuto,times(1)).notificarSensorApagado(app);
+	}
 }
