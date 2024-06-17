@@ -85,14 +85,15 @@ class ModoAutomaticoTest {
 	}
 	
 	@Test
-	void testCambiarModoSensorApagado() {
-		mAuto.cambiarModoSensorApagado();
-		verify(app,times(1)).setModoApp(any(ModoManual.class));
-	}
-	
-	@Test
 	void comportamientoDeInterfazNoUsado() {
 		mAuto.inicioDeEstacionamiento("AA-000-AA");
 		mAuto.finDeEstacionamiento();
+	}
+	@Test
+	void testCambiarModoManualAAutomatico() {
+		
+		mAuto.notificarSensorApagado(app);
+		
+		verify(app).setModoApp(any(ModoManual.class));
 	}
 }

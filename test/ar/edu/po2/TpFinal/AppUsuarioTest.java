@@ -16,6 +16,8 @@ class AppUsuarioTest {
 	private Celular cel;
 	private Modo mAuto;
 	private Modo mManual;
+	private SensorMovimiento sApagado;
+	private SensorMovimiento sEncendido;
 	
 	@BeforeEach
 	void setUp() {
@@ -24,10 +26,14 @@ class AppUsuarioTest {
 		cel = mock(Celular.class);
 		app = new AppUsuario("AA-000-AA",sem,cel);
 		when(cel.getNumero()).thenReturn(12345);
+	
 		
 		mManual = mock(ModoManual.class);
 		mAuto = mock(ModoAutomatico.class);
+		sApagado = mock(Apagado.class);
+		sEncendido = mock(Encendido.class);
 		app.setModoApp(mManual);
+		app.setSensorMovimiento(sApagado);
 	}
 	
 	@Test
@@ -100,27 +106,17 @@ class AppUsuarioTest {
 	void testEncenderSensor() {
 		
 		app.encenderSensor();
-		assertTrue(app.sensorPrendido());
+		verify(sApagado, times(1)).encender(app);;
 		
 	}
 	
 	@Test
 	void testApagarSensor() {
 		
-		app.apagarSensor();
-		assertFalse(app.sensorPrendido());
-		verify(mManual).cambiarModoSensorApagado();
-		
-	}
-	
-	@Test
-	void testApagarSensorEnAutomaticoCambiaModo() {
-		
-		app.setModoApp(mAuto);
+		app.setSensorMovimiento(sEncendido);
 		app.apagarSensor();
 		
-		assertFalse(app.sensorPrendido());
-		verify(mAuto).cambiarModoSensorApagado();
+		verify(sEncendido, times(1)).apagarSensor(app);
 		
 	}
 	
@@ -140,18 +136,6 @@ class AppUsuarioTest {
 		verify(mAuto).cambiarModo(app);
 	}
 	
-	
-	@Test
-	void testAppEnviaMensajesConSensorPrendido() {
-		
-		app.encenderSensor();
-		app.driving();
-		app.walking();
-		
-		verify(mManual).estaManejando();
-		verify(mManual).estaCaminando();;
-		
-	}
 	
 	@Test
 	void testAppNoEnviaMensajesConSensorApagado() {
@@ -184,21 +168,4 @@ class AppUsuarioTest {
 		verify(cel,times(1)).notificar(mensaje);
 	}
 	
-	@Test
-	void testCambiarEstadoSensorAPrendido() {
-		
-		
-		app.cambiarEstadoSensor();
-		
-		assertTrue(app.sensorPrendido());
-	}
-	
-	@Test
-	void testCambiarEstadoSensorAApagado() {
-		
-		app.encenderSensor();
-		app.cambiarEstadoSensor();
-		
-		assertFalse(app.sensorPrendido());
-	}
 }

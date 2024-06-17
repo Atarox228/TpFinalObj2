@@ -7,9 +7,9 @@ public interface Modo {
 	public void estaManejando();
 	public void estaCaminando();
 
-	public void cambiarModoSensorApagado();
-
 	public void finDeEstacionamiento();
 
 	public void inicioDeEstacionamiento(String patente);
+	
+	public void notificarSensorApagado(AppUsuario app);
 }

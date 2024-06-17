@@ -6,7 +6,7 @@ public class AppUsuario {
 	private String patentePredeterminada;
 	private SEM sistemaSEM;
 	private Modo modoApp;
-	private boolean sensorMovimiento;
+	private SensorMovimiento sensorMovimiento;
 	private Celular celular;
 	private boolean vigente; //Es una bandera para corroborar que automatico no inicie otro estacionamiento
 	private ZonaEstacionamiento zona;
@@ -21,7 +21,8 @@ public class AppUsuario {
 		this.modoApp = new ModoManual(this);
 		this.celular = celular;
 		this.vigente = false;
-		this.sensorMovimiento = false;
+		this.sensorMovimiento = new Apagado();
+	
 	}
 	
 	//Getters Setters
@@ -53,7 +54,12 @@ public class AppUsuario {
 	protected void setModoApp(Modo modo) {
 		
 		this.modoApp= modo;
-	  }
+	}
+	public void setSensorMovimiento(SensorMovimiento sensor) {
+		
+		this.sensorMovimiento = sensor;
+		
+	}
 	public ZonaEstacionamiento getZona() {
 		return this.zona;
 	}
@@ -86,49 +92,24 @@ public class AppUsuario {
 		  
 		  return sistemaSEM.consultarSaldoDe_(this.getNTelefono());
 	  }
-	
-	protected boolean sensorPrendido() {
-		
-		return this.sensorMovimiento;
-	}
-	
+
 	public void driving() {
 		
-		if(sensorPrendido())
-		this.modoApp.estaManejando();
+		this.sensorMovimiento.estaManejando(this);
 	}
 	
 	public void walking() {
 		
-		if(sensorPrendido())
-		this.modoApp.estaCaminando();
-	}
-	
-	public void cambiarEstadoSensor() {
-		
-		if(this.sensorPrendido()) {
-			this.apagarSensor();
-		}
-		else
-		{
-			this.encenderSensor();
-		}
-		
+		this.sensorMovimiento.estaCaminando(this);
 	}
 
 	public void encenderSensor() {
 		
-		this.sensorMovimiento = true;
+		this.sensorMovimiento.encender(this);
 		
 	}
 	public void apagarSensor() {
-		this.sensorMovimiento = false;
-		this.cambiarModoSensorApagado();
-	}
-	
-	//
-	protected void cambiarModoSensorApagado() {
-		this.modoApp.cambiarModoSensorApagado();
+		this.sensorMovimiento.apagarSensor(this);
 	}
 
 	public void notificar(String notificacion) {
@@ -142,5 +123,11 @@ public class AppUsuario {
 		ZonaEstacionamiento z = this.sistemaSEM.obtenerZonaCercana();
 		this.zona = z;
 		return z;
+	}
+
+	public void notificarSensorApagado() {
+		
+		this.modoApp.notificarSensorApagado(this);
+		
 	}
 }

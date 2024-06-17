@@ -38,11 +38,6 @@ class ModoManualTest {
 	}
 	
 	@Test
-	void testCambiarModoSensorApagado() {
-		mm.cambiarModoSensorApagado();
-	}
-	
-	@Test
 	void testInicioDeEstacionamiento() {
 		mm.inicioDeEstacionamiento("AA-000-AA");
 		verify(app,times(1)).inicioDeEstacionamientoApp("AA-000-AA");
@@ -54,5 +49,12 @@ class ModoManualTest {
 		mm.finDeEstacionamiento();
 		verify(app,times(1)).finDeEstacionamientoApp();
 		
+	}
+	@Test
+	void testNotificarSensorApagado() {
+		
+		mm.notificarSensorApagado(app);
+		
+		verify(app ,times(0)).setModoApp(any(ModoAutomatico.class));
 	}
 }

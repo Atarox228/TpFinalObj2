@@ -94,12 +94,16 @@ public class Celular {
 			app.cambiarModoApp();;
 	}
 	
-	public void cambiarEstadoSensor() {
+	public void encenderSensor() {
 		
 		if(this.appInstalada())
-		app.cambiarEstadoSensor();
+			app.encenderSensor();
 	}
-
+	public void apagarSensor() {
+		
+		if(this.appInstalada())
+			app.apagarSensor();
+	}
 	public String notificar(String notificacion) {
 		
 		return notificacion;

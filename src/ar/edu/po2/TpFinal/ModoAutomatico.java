@@ -61,13 +61,6 @@ public class ModoAutomatico implements Modo{
 		
 		this.estadoCaminando = !estadoCaminando;
 	}
-	
-	@Override
-	public void cambiarModoSensorApagado() {
-		this.cambiarModo(app);
-		
-	}
-
 
 	@Override
 	public void finDeEstacionamiento() {
@@ -81,5 +74,10 @@ public class ModoAutomatico implements Modo{
 		
 		
 	}
-
+	@Override 
+	public void notificarSensorApagado(AppUsuario app) {
+		
+		Modo manual = new ModoManual(app);
+		app.setModoApp(manual);
+	}
 }

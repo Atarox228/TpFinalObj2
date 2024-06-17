@@ -144,9 +144,20 @@ class CelularTest {
 	}
 	
 	@Test
-	void cambiarEstadoSensorTest() {
+	void cambiarEstadoSensorPredidoTest() {
 		cel.descargarApp(app);
-		cel.cambiarEstadoSensor();
-		verify(app,times(1)).cambiarEstadoSensor();
+		cel.encenderSensor();
+		verify(app,times(1)).encenderSensor();
+	}
+	
+	@Test
+	void cambiarEstadoSensorApagadoTest() {
+		cel.descargarApp(app);
+		
+		cel.encenderSensor();
+		verify(app,times(1)).encenderSensor();
+		cel.apagarSensor();
+		
+		verify(app,times(1)).apagarSensor();
 	}
 }

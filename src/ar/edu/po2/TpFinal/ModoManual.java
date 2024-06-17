@@ -31,10 +31,6 @@ public class ModoManual implements Modo {
 	
 	}
 
-	@Override
-	public void cambiarModoSensorApagado() {
-		
-	}
 
 	@Override
 	public void finDeEstacionamiento() {
@@ -47,5 +43,9 @@ public class ModoManual implements Modo {
 		
 		app.inicioDeEstacionamientoApp(patente);
 	}
-
+	
+	@Override
+	public void notificarSensorApagado(AppUsuario app) {
+		
+	}
 }
