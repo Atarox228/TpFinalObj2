@@ -8,7 +8,7 @@ class RegistroEstTest {
 	
 	@Test
 	void registroPuntoVentaTest() {
-		RegistroEst registro = new RegistroEst("AA-000-AA",8,8);
+		RegistroEst registro = new RegistroEstPV("AA-000-AA",8,8);
 		
 		assertEquals(registro.getPatente(),"AA-000-AA");
 		assertEquals(registro.getHoraInicio(),8);
@@ -18,7 +18,7 @@ class RegistroEstTest {
 	
 	@Test
 	void registrarAppTest() {
-		RegistroEst registro = new RegistroEst("AA-000-AA",8,23047067,41d);
+		RegistroEst registro = new RegistroEstApp("AA-000-AA",8,23047067,41d);
 		
 		assertEquals(registro.getPatente(),"AA-000-AA");
 		assertEquals(registro.getNTelefono(),23047067);
@@ -26,11 +26,11 @@ class RegistroEstTest {
 	
 	@Test
 	void registrarAppHoraFinalTest() {
-		RegistroEst registro = new RegistroEst("AA-000-AA",8,23047067,40d);
-		RegistroEst registro2 = new RegistroEst("AA-000-AA",8,23047067,41d);
-		RegistroEst registro3 = new RegistroEst("AA-000-AA",8,23047067,79d);
-		RegistroEst registro4 = new RegistroEst("AA-000-AA",15,23047067,80d);
-		RegistroEst registro5 = new RegistroEst("AA-000-AA",8,23047067,4160d);
+		RegistroEst registro = new RegistroEstApp("AA-000-AA",8,23047067,40d);
+		RegistroEst registro2 = new RegistroEstApp("AA-000-AA",8,23047067,41d);
+		RegistroEst registro3 = new RegistroEstApp("AA-000-AA",8,23047067,79d);
+		RegistroEst registro4 = new RegistroEstApp("AA-000-AA",15,23047067,80d);
+		RegistroEst registro5 = new RegistroEstApp("AA-000-AA",8,23047067,4160d);
 		
 		
 		assertEquals(registro.getHoraFinal(),9);

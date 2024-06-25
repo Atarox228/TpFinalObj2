@@ -1,6 +1,6 @@
 package ar.edu.po2.TpFinal;
 
-public class RegistroEst {
+public abstract class RegistroEst {
 	
 	//Variables de Instancia
 	private String patente;
@@ -9,30 +9,17 @@ public class RegistroEst {
 	private int nTelefono;
 	
 	//Constructores
-	public RegistroEst(String patente, int horaInicio, int horas) {
-		// estacionamiento por compra puntual
+	public RegistroEst() {
+		//Constructor para heredar.
+	}
+	public RegistroEst(String patente, int horaInicio) {
 		super();
 		this.patente = patente;
 		this.horaInicio = horaInicio;
-		this.horaFinal = horaInicio + horas;
-		this.nTelefono = 0;
 	}
 
-	public RegistroEst(String patente, int horaInicio, int nTelefono, double saldo) {
-		// estacionamiento por app
-		super();
-		int horasPosibles = (int) Math.floor(saldo/40); 
-		this.nTelefono = nTelefono;
-		this.patente = patente;
-		this.horaInicio = horaInicio;
-		if (horaInicio + horasPosibles >= 20 ) {
-			this.horaFinal = 20;
-		} else {
-			this.horaFinal = horaInicio + horasPosibles;
-		}
-	}
-
-	//Metodos
+	//Getters y Setters
+	
 	public String getPatente() {
 		return patente;
 	}
@@ -45,7 +32,14 @@ public class RegistroEst {
 	public int getHoraInicio() {
 		return horaInicio;
 	}
-	
+	public void setHoraFinal(int hora) {
+		
+		this.horaFinal = hora;
+	}
+	public void setNTelefono(int nTelefono) {
+		
+		this.nTelefono = nTelefono;
+	}
 	
 	
 	
