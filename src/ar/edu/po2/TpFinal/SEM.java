@@ -149,7 +149,7 @@ public class SEM extends Observable{
 	 * Guarda un registro de estacionamiento por punto de venta.
 	 */
 	public void addEstacionamientoPV(String patente, int horas) {
-		RegistroEst r = new RegistroEst(patente, this.getHora(),horas);
+		RegistroEst r = new RegistroEstPV(patente, this.getHora(),horas);
 		this.addRegistroDeEst(r);
 	}
 	
@@ -175,7 +175,7 @@ public class SEM extends Observable{
 		Stream<Credito> sc = this.listaDeCreditos.stream();
 		Credito credito = sc.filter(c -> c.getNTelefono() == numeroTelefono).findFirst().orElse(this.nuevoCredito(numeroTelefono));
 		if (credito.getCredito() >= 40d) {
-			RegistroEst r = new RegistroEst(patente, this.getHora(),numeroTelefono,credito.getCredito());
+			RegistroEst r = new RegistroEstApp(patente, this.getHora(),numeroTelefono,credito.getCredito());
 			this.addRegistroDeEst(r);
 			String notificacion = "Hora de inicio: " + this.getHora() + ", Hora de final: " + r.getHoraFinal();
 			app.notificar(notificacion);
