@@ -122,7 +122,7 @@ public class SEM extends Observable{
 		Stream<RegistroEst> st = this.registroDeEstacionamientos.stream();
 		Stream<ZonaEstacionamiento> st2 = this.zonasEstacionamiento.stream();
 		ZonaEstacionamiento falsa = new ZonaEstacionamiento(id,0); // punto 0 ya que esta zona solo sirve para la condicion booleana.
-		// en caso de no tener la zona de estacionamineto de ese inpctor, se creara una falsa que indique 
+		// en caso de no tener la zona de estacionamineto de ese inpector, se creara una falsa que indique 
 		// falso en el and para hacer short circuit y no romper el sistema
 		ZonaEstacionamiento z1 = st2.filter(z -> z.getIdInspector() == id).findFirst().orElse(falsa);
 		// esto no falla debido al short circuit
@@ -131,6 +131,24 @@ public class SEM extends Observable{
 		boolean b2 = z1.tieneEstacionadoA(patente);
 		return ( b1 && b2 && (regEst.getHoraFinal() < this.hora) );
 
+	}
+	public boolean yaPoseeUnaInfraccion(String patente, int id) {
+		
+		Stream<Infraccion> sInfracciones = this.listaDeInfracciones.stream();
+		Stream<ZonaEstacionamiento> sZonas = this.zonasEstacionamiento.stream();
+		ZonaEstacionamiento zonaFalsa = new ZonaEstacionamiento(id,0);
+		ZonaEstacionamiento zona = sZonas.filter(z -> z.getIdInspector() == id).findFirst().orElse(zonaFalsa);
+		Infraccion infFalsa = new Infraccion("0","0",0,id,zona);
+		Infraccion infraccion = sInfracciones.filter(i -> i.getPatente().equals(patente)).findFirst().orElse(infFalsa);
+		// El b1 es porque tiene la zona tiene que tener al mismo inspector y que se haya correctamente en la zona del mismo.
+		boolean b1 = zona.getIdInspector() == id && infraccion.getZonaEstacionamiento().equals(zona);
+		// El b2 es para chequear de que ya existe una infraccion con la patente ingresada.(Las infracciones se guardan todas de manera historica)
+		boolean b2 = infraccion.getPatente() == patente;
+		// El b3 compara la fecha, ya que este es importante por lo anterior mencionado en el parentisis.
+		boolean b3 = infraccion.getFecha().equals(this.getFecha());
+		
+		// Si cumple las 3 condiciones booleanes quiere decir que ya la patente ingresada posee una infraccion en esa zona y en la misma fecha.
+		return b1 && b2 && b3;
 	}
 	
 	/*

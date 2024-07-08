@@ -112,6 +112,60 @@ class SEMTest {
 		assertFalse(SEM.estaEnInfraccion("AA-000-AA", 2546));
 	}
 	
+	@Test 
+	void verificarInfraccionExistente(){
+		
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
+		Infraccion infraccion = new Infraccion("AA-000-AA","08/07/2024",12,1,z1);
+		
+		when(z1.getIdInspector()).thenReturn(1);
+		SEM.addInfracccion(infraccion);
+		SEM.setFecha("08/07/2024");
+		SEM.addZonaEstacionamiento(z1);
+		
+		assertTrue(SEM.yaPoseeUnaInfraccion("AA-000-AA", 1));
+		
+	}
+	@Test
+	void verificarInfraccionInexistentePorPatenteDiferente(){
+		
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
+		Infraccion infraccion = new Infraccion("BB-111-BB","08/07/2024",12,1,z1);
+		
+		when(z1.getIdInspector()).thenReturn(1);
+		SEM.addInfracccion(infraccion);
+		SEM.setFecha("08/07/2024");
+		SEM.addZonaEstacionamiento(z1);
+		
+		assertFalse(SEM.yaPoseeUnaInfraccion("AA-000-AA", 1));
+		
+	}
+	@Test
+	void verificarInfraccionInexistentePorFechaDistinta() {
+		
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
+		Infraccion infraccion = new Infraccion("AA-000-AA","08/07/2024",12,1,z1);
+		
+		when(z1.getIdInspector()).thenReturn(1);
+		SEM.addInfracccion(infraccion);
+		SEM.setFecha("11/07/2024");
+		SEM.addZonaEstacionamiento(z1);
+		
+		assertFalse(SEM.yaPoseeUnaInfraccion("AA-000-AA", 1));
+	}
+	@Test
+	void verificarInfraccionInexistentePorInspectorDistontoEnLaZona() {
+		
+		ZonaEstacionamiento z1 = mock(ZonaEstacionamiento.class);
+		Infraccion infraccion = new Infraccion("AA-000-AA","08/07/2024",12,1,z1);
+		
+		when(z1.getIdInspector()).thenReturn(2);
+		SEM.addInfracccion(infraccion);
+		SEM.setFecha("08/07/2024");
+		SEM.addZonaEstacionamiento(z1);
+		
+		assertFalse(SEM.yaPoseeUnaInfraccion("AA-000-AA", 1));
+	}
 	@Test
 	void infraccionDePatenteNoExistenteTest() {
 		SEM.setHora(19);

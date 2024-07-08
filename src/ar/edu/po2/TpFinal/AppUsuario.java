@@ -147,6 +147,8 @@ public class AppUsuario {
 	}
 	public boolean estaEnLaZona() {
 		
+		// Tambien se podria usar el metodo "tieneEstacionadoA" en caso de ver si esta la patente es la zona actual.
+		// El problema es q es un random la zona, por lo que no lo asegura 100%.
 		this.obtenerZonaCercana();
 		int rangoZona = this.zona.getPuntoGeografico();
 		return this.puntoGeograficoActual > 0 && this.puntoGeograficoActual < rangoZona; 
