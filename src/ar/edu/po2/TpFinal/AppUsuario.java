@@ -1,5 +1,7 @@
 package ar.edu.po2.TpFinal;
 
+import java.util.Random;
+
 public class AppUsuario {
 
 	//Variables de Instancia
@@ -10,6 +12,7 @@ public class AppUsuario {
 	private Celular celular;
 	private boolean vigente; //Es una bandera para corroborar que automatico no inicie otro estacionamiento
 	private ZonaEstacionamiento zona;
+	private int puntoGeograficoActual; // Un punto greogracico de cualquier zona, representado con un simple entero.
 	
 	
 	//Constructores
@@ -22,6 +25,7 @@ public class AppUsuario {
 		this.celular = celular;
 		this.vigente = false;
 		this.sensorMovimiento = new Apagado();
+		this.puntoGeograficoActual = 0; // por defecto arranca en cero.
 	
 	}
 	
@@ -45,7 +49,10 @@ public class AppUsuario {
 	protected void cambiarVigente() {
 		this.vigente = !this.vigente;
 	}
-	
+	public int getPuntoGeograficoActual() {
+		
+		return this.puntoGeograficoActual;
+	}
 	
 	public void cambiarModoApp(){
 	    
@@ -129,5 +136,19 @@ public class AppUsuario {
 		
 		this.modoApp.notificarSensorApagado(this);
 		
+	}
+	public void obtenerPuntoGeografico() {
+		
+		// Retorna un numero random, dando supuestamente la ubicacion
+		Random random = new Random();
+		int puntoRandom = random.nextInt(100); 
+		this.puntoGeograficoActual = puntoRandom;
+		
+	}
+	public boolean estaEnLaZona() {
+		
+		this.obtenerZonaCercana();
+		int rangoZona = this.zona.getPuntoGeografico();
+		return this.puntoGeograficoActual > 0 && this.puntoGeograficoActual < rangoZona; 
 	}
 }

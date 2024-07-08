@@ -8,7 +8,8 @@ public class Caminando extends SensorMovimiento {
 		
 		SensorMovimiento manejando = new Manejando();
 		app.setSensorMovimiento(manejando);
-		app.finDeEstacionamiento();
+		if(app.estaEnLaZona())
+			app.finDeEstacionamiento();
 	}
 	@Override
 	public void estaCaminando(AppUsuario app) {

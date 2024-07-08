@@ -10,13 +10,15 @@ public class ZonaEstacionamiento {
 	private int idInspector;
 	private List<String> patentes;
 	private List<PuntoVenta> puntosDeVentas;
+	private int puntoGeografico;
 	
 	//Constructores
-	public ZonaEstacionamiento(int idInspector) {
+	public ZonaEstacionamiento(int idInspector, int puntoGeografico) {
 		
 		this.idInspector = idInspector;
 		this.patentes = new ArrayList<String>();
 		this.puntosDeVentas = new ArrayList<PuntoVenta>();
+		this.puntoGeografico = puntoGeografico;
 		
 	}
 
@@ -32,6 +34,10 @@ public class ZonaEstacionamiento {
 	public int getPuntosDeVentasSize() {
 		
 		return this.puntosDeVentas.size();
+	}
+	public int getPuntoGeografico() {
+		
+		return this.puntoGeografico;
 	}
 	//Metodos
 	

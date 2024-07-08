@@ -18,12 +18,16 @@ class AppUsuarioTest {
 	private Modo mManual;
 	private SensorMovimiento sApagado;
 	private SensorMovimiento sEncendido;
+	private SensorMovimiento sCaminando;
+	private SensorMovimiento sManejando;
+	private ZonaEstacionamiento zona;
 	
 	@BeforeEach
 	void setUp() {
 		
 		sem = mock(SEM.class);
 		cel = mock(Celular.class);
+		zona = mock(ZonaEstacionamiento.class);
 		app = new AppUsuario("AA-000-AA",sem,cel);
 		when(cel.getNumero()).thenReturn(12345);
 	
@@ -32,6 +36,8 @@ class AppUsuarioTest {
 		mAuto = mock(ModoAutomatico.class);
 		sApagado = mock(Apagado.class);
 		sEncendido = mock(Encendido.class);
+		sCaminando = mock(Caminando.class);
+		sManejando = mock(Caminando.class);
 		app.setModoApp(mManual);
 		app.setSensorMovimiento(sApagado);
 	}
@@ -48,6 +54,7 @@ class AppUsuarioTest {
 		assertEquals(app.getPatentePredeterminada(),"AA-000-AA");
 		assertFalse(app.getVigente());
 		assertEquals(app.getZona(),null);
+		assertEquals(app.getPuntoGeograficoActual(),0);
 	}
 	
 	@Test
@@ -175,4 +182,35 @@ class AppUsuarioTest {
 		
 		verify(mAuto,times(1)).notificarSensorApagado(app);
 	}
+	@Test
+	void testPuntoGeograficoCambiado() {
+		 
+		assertEquals(app.getPuntoGeograficoActual(), 0);
+		
+		app.obtenerPuntoGeografico();
+		
+		assertTrue(app.getPuntoGeograficoActual() != 0);
+	}
+	@Test
+	void testEstaEnLaZona() {
+		
+		assertEquals(app.getPuntoGeograficoActual(), 0);
+		when(sem.obtenerZonaCercana()).thenReturn(zona);
+		when(zona.getPuntoGeografico()).thenReturn(100);
+		
+		app.obtenerPuntoGeografico();
+		
+		assertTrue(app.estaEnLaZona());
+	}
+	@Test
+	void testNoEstaEnLaZonaDeEstacionamiento() {
+		
+		when(sem.obtenerZonaCercana()).thenReturn(zona);
+		when(zona.getPuntoGeografico()).thenReturn(1);
+		// Retorna un zona en las que no deberia estar ubicada por las pocas chances de estar
+		// dentro de esa zona.
+		
+		assertFalse(app.estaEnLaZona()); 
+	}
+
 }

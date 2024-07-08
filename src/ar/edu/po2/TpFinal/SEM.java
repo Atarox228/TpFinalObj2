@@ -121,7 +121,7 @@ public class SEM extends Observable{
 	public boolean estaEnInfraccion(String patente, int id) {
 		Stream<RegistroEst> st = this.registroDeEstacionamientos.stream();
 		Stream<ZonaEstacionamiento> st2 = this.zonasEstacionamiento.stream();
-		ZonaEstacionamiento falsa = new ZonaEstacionamiento(id);
+		ZonaEstacionamiento falsa = new ZonaEstacionamiento(id,0); // punto 0 ya que esta zona solo sirve para la condicion booleana.
 		// en caso de no tener la zona de estacionamineto de ese inpctor, se creara una falsa que indique 
 		// falso en el and para hacer short circuit y no romper el sistema
 		ZonaEstacionamiento z1 = st2.filter(z -> z.getIdInspector() == id).findFirst().orElse(falsa);
