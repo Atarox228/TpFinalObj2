@@ -13,13 +13,18 @@ class ZonaEstacionamientoTest {
 	
 	@BeforeEach
 	void setUp() {
-		zona = new ZonaEstacionamiento(2546);
+		zona = new ZonaEstacionamiento(2546,200);
 	}
 	
 	@Test
 	void getterIdInspectorTest() {
 		
 		assertEquals(zona.getIdInspector(),2546);
+	}
+	@Test
+	void getterPuntoGeografico() {
+		
+		assertEquals(zona.getPuntoGeografico(),200);
 	}
 	
 	@Test

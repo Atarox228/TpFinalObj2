@@ -8,6 +8,7 @@ public class Manejando extends SensorMovimiento {
 		SensorMovimiento caminando = new Caminando();
 		app.setSensorMovimiento(caminando);
 		String patente = app.getPatentePredeterminada();
+		app.obtenerPuntoGeografico();
 		app.inicioDeEstacionamiento(patente);
 	}
 	@Override
