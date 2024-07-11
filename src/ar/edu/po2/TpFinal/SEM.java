@@ -140,7 +140,7 @@ public class SEM extends Observable{
 		ZonaEstacionamiento zona = sZonas.filter(z -> z.getIdInspector() == id).findFirst().orElse(zonaFalsa);
 		Infraccion infFalsa = new Infraccion("0","0",0,id,zona);
 		Infraccion infraccion = sInfracciones.filter(i -> i.getPatente().equals(patente)).findFirst().orElse(infFalsa);
-		// El b1 es porque tiene la zona tiene que tener al mismo inspector y que se haya correctamente en la zona del mismo.
+		// El b1 es porque la zona tiene que tener al mismo inspector y que se haya correctamente en la zona del mismo.
 		boolean b1 = zona.getIdInspector() == id && infraccion.getZonaEstacionamiento().equals(zona);
 		// El b2 es para chequear de que ya existe una infraccion con la patente ingresada.(Las infracciones se guardan todas de manera historica)
 		boolean b2 = infraccion.getPatente() == patente;

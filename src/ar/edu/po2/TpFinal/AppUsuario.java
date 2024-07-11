@@ -139,18 +139,24 @@ public class AppUsuario {
 	}
 	public void obtenerPuntoGeografico() {
 		
-		// Retorna un numero random, dando supuestamente la ubicacion
+		// Asumo que el usuario esta en una zona de estacionamiento.
+		zona = this.obtenerZonaCercana();
 		Random random = new Random();
-		int puntoRandom = random.nextInt(100); 
+		int puntoRandom = random.nextInt(zona.getPuntoGeografico()); 
 		this.puntoGeograficoActual = puntoRandom;
 		
 	}
 	public boolean estaEnLaZona() {
 		
-		// Tambien se podria usar el metodo "tieneEstacionadoA" en caso de ver si esta la patente es la zona actual.
-		// El problema es q es un random la zona, por lo que no lo asegura 100%.
-		this.obtenerZonaCercana();
-		int rangoZona = this.zona.getPuntoGeografico();
-		return this.puntoGeograficoActual > 0 && this.puntoGeograficoActual < rangoZona; 
+		// Se fija si el punto esta dentro de la zona de estacionamienyo y 
+		//de que esa patente este en la zona.
+		if(this.zona != null) { // Jamas deberia estar vacia la zona cuando es llamado por el state Caminando.  
+			int rangoZona = this.zona.getPuntoGeografico();
+			return this.puntoGeograficoActual > 0 && this.puntoGeograficoActual < rangoZona
+					&& zona.tieneEstacionadoA(this.getPatentePredeterminada()); 	
+		}
+		else {
+			return false;
+		}
 	}
 }

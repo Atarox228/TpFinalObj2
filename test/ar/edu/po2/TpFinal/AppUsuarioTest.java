@@ -186,17 +186,19 @@ class AppUsuarioTest {
 	void testPuntoGeograficoCambiado() {
 		 
 		assertEquals(app.getPuntoGeograficoActual(), 0);
+		when(sem.obtenerZonaCercana()).thenReturn(zona);
+		when(zona.getPuntoGeografico()).thenReturn(100);
 		
 		app.obtenerPuntoGeografico();
 		
-		assertTrue(app.getPuntoGeograficoActual() != 0);
+		assertTrue(app.getPuntoGeograficoActual() > 0);
 	}
 	@Test
 	void testEstaEnLaZona() {
 		
-		assertEquals(app.getPuntoGeograficoActual(), 0);
 		when(sem.obtenerZonaCercana()).thenReturn(zona);
 		when(zona.getPuntoGeografico()).thenReturn(100);
+		when(zona.tieneEstacionadoA(app.getPatentePredeterminada())).thenReturn(true);
 		
 		app.obtenerPuntoGeografico();
 		
@@ -205,11 +207,7 @@ class AppUsuarioTest {
 	@Test
 	void testNoEstaEnLaZonaDeEstacionamiento() {
 		
-		when(sem.obtenerZonaCercana()).thenReturn(zona);
-		when(zona.getPuntoGeografico()).thenReturn(1);
-		// Retorna un zona en las que no deberia estar ubicada por las pocas chances de estar
-		// dentro de esa zona.
-		
+		// Retorna falso ya que no tiene ninguna zona guardada.
 		assertFalse(app.estaEnLaZona()); 
 	}
 
